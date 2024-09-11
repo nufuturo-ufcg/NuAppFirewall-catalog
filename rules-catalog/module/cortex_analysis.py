@@ -1,0 +1,435 @@
+import pandas as pd
+import tldextract as tld
+import ipaddress
+import socket
+
+def find_hostnames(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Find hostnames for IPs without a hostname in the given DataFrame.
+    
+    Args:
+        df (pd.DataFrame): DataFrame containing the column 'dst_action_external_hostname' and 'action_remote_ip'.
+
+    Returns:
+        pd.DataFrame: DataFrame with IPs and their corresponding hostnames.
+    """
+    ips_without_hostname = df[df['dst_action_external_hostname'].isna()]['action_remote_ip'].unique()
+    sorted_ips = sorted(ips_without_hostname, key=lambda ip: ipaddress.ip_address(ip))
+
+    results = []
+    for ip in sorted_ips:
+        try:
+            hostname = socket.gethostbyaddr(ip)
+            results.append({'IP': ip, 'Hostname': hostname[0]})
+        except socket.herror:
+            results.append({'IP': ip, 'Hostname': "No DNS Record found"})
+
+    return pd.DataFrame(results)
+
+
+def merge_dataframes(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
+    """
+    Merge two DataFrames on 'action_remote_ip' and 'IP' columns and update 'dst_action_external_hostname'.
+
+    Args:
+        df1 (pd.DataFrame): First DataFrame.
+        df2 (pd.DataFrame): Second DataFrame with 'IP' and 'Hostname' columns.
+
+    Returns:
+        pd.DataFrame: Merged DataFrame with updated 'dst_action_external_hostname'.
+    """
+    merged_df = df1.merge(df2, left_on='action_remote_ip', right_on='IP', how='left', right_index=False, left_index=False)
+
+    merged_df['dst_action_external_hostname'] = merged_df.apply(
+        lambda row: row['Hostname'] if pd.isna(row['dst_action_external_hostname']) else row['dst_action_external_hostname'],
+        axis=1
+    )
+
+    merged_df.drop(['Hostname', 'IP'], axis=1, inplace=True)
+
+    return merged_df
+
+
+def extract_main_domain(hostname: str) -> str:
+    """
+    Extract the main domain from a given hostname.
+
+    Args:
+        hostname (str): Hostname to extract the main domain from.
+
+    Returns:
+        str: Extracted main domain.
+    """
+    extracted = tld.extract(hostname)
+    if extracted.suffix:
+        return f"{extracted.domain}.{extracted.suffix}"
+    else:
+        return hostname
+
+
+def extract_main_subdomain(hostname: str) -> str:
+    """
+    Extract the main subdomain from a given hostname.
+
+    Args:
+        hostname (str): Hostname to extract the main subdomain from.
+
+    Returns:
+        str: Extracted main subdomain.
+    """
+    extracted = tld.extract(hostname)
+    if extracted.suffix:
+        return f"{extracted.subdomain}.{extracted.domain}.{extracted.suffix}"
+    else:
+        return hostname
+
+
+def extract_registered_domain(hostname: str) -> str:
+    """
+    Extract the registered domain from a given hostname.
+
+    Args:
+        hostname (str): Hostname to extract the registered domain from.
+
+    Returns:
+        str: Extracted registered domain.
+    """
+    extracted = tld.extract(hostname)
+    if extracted.registered_domain:
+        return extracted.registered_domain
+    else:
+        return hostname
+  
+
+def get_domain(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Adds columns for main domain, main subdomain and registered domain to the DataFrame.
+
+    Parameters:
+        df (pd.DataFrame): DataFrame containing column 'dst_action_external_hostname'.
+
+    Returns:
+        pd.DataFrame: DataFrame with additional columns 'main_domain', 'main_subdomain' and 'registered_domain'.
+    """
+
+    if df['dst_action_external_hostname'].isna().sum() > 0:
+        raise ValueError("A coluna de hostnames não deve conter valores nulos.")
+    
+    df['main_domain'] = df['dst_action_external_hostname'].apply(extract_main_domain)
+    df['main_subdomain'] = df['dst_action_external_hostname'].apply(extract_main_subdomain)
+    df['registered_domain'] = df['dst_action_external_hostname'].apply(extract_registered_domain)
+    
+    return df
+
+
+def generate_table_html_hostnames(freq: pd.DataFrame, hostnames: dict, caption: str, column: str) -> str:
+    """
+    Generate HTML table for collumn frequency with hostnames.
+
+    Args:
+        freq (pd.DataFrame): DataFrame containing frequency of IPs.
+        hostnames (dict): Dictionary mapping IPs to hostnames.
+        caption (str): Caption for the HTML table.
+        column (str): Column name.
+
+    Returns:
+        str: HTML table as a string.
+    """  
+    table_html = f"""
+    <table border="1" cellspacing="0" cellpadding="5">
+        <caption>{caption}</caption>
+        <tr>
+        <th>{column}</th>
+        <th>Hostnames</th>
+        <th>Counting Host</th>
+        <th>Occurrences Log</th>
+        </tr>
+    """
+    for index, row in freq.iterrows():
+        content = row[column]
+        hostname = ', '.join(hostnames.get(content, set()))
+        counting_host = len(hostname.split(', '))
+        occurences = row['count']
+        table_html += f"<tr><td>{content}</td><td>{hostname}</td><td>{counting_host}</td><td>{occurences}</td></tr>"
+    table_html += "</table>"
+    
+    return table_html
+
+
+def generate_table_html(freq: pd.Series, caption: str, column: str) -> str:
+    """
+    Generate HTML table for frequency of a given column.
+
+    Args:
+        freq (pd.Series): Series containing frequency of values.
+        caption (str): Caption for the HTML table.
+        column (str): Name of the column.
+
+    Returns:
+        str: HTML table as a string.
+    """
+    table_html = f"""
+    <table border="1" cellspacing="0" cellpadding="5">
+        <caption>{caption}</caption>
+        <tr>
+        <th>{column}</th>
+        <th>Frequency</th>
+        </tr>
+    """
+    for index, value in freq.items():
+        table_html += f"<tr><td>{index}</td><td>{value}</td></tr>"
+    table_html += "</table>"
+
+    return table_html
+
+
+def save_frequency_table_hostnames_to_html(df: pd.DataFrame, column: str, file_path: str) -> str:
+    """
+    Save the ip frequency table in the DataFrame in an HTML file.
+    
+    Args:
+        df (pd.DataFrame): DataFrame containing the IP column.
+        column (str): Column name.
+        file_path (str): Path to save the HTML file.
+
+    Returns:
+        None
+    """
+    hostnames = df.groupby(column)['dst_action_external_hostname'].apply(lambda x: set(x.dropna().astype(str))).to_dict()
+
+    freq = df[column].value_counts().reset_index()
+    freq.columns = [column, 'count']
+
+    filtered_column = df[column].value_counts()
+    print(f"Total of {column}: {filtered_column.count()}")
+    
+    table_html_ip = generate_table_html_hostnames(freq, hostnames, f"Frequency Table - {column}", column)
+    with open(file_path, 'w') as file:
+        file.write(table_html_ip)
+
+
+def save_frequency_table_to_html(df: pd.DataFrame, column: str, file_path: str):
+    """
+    Save the frequency table of a given column in the DataFrame to an HTML file.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing the column.
+        column (str): Name of the column.
+        file_path (str): Path to save the HTML file.
+
+    Returns:
+        None
+    """
+    filtered_column = df[column].value_counts()
+    print(f"Total of {column}: {filtered_column.count()}")
+    
+    table_html = generate_table_html(filtered_column, f"Frequency Table - {column}", column)
+    
+    with open(file_path, 'w') as file:
+        file.write(table_html)
+
+
+def is_application_in_path(path: str, app: str) -> bool:
+    """
+    Check if the application string is present in the given path string.
+
+    Args:
+        path (str): The path string to search within.
+        app (str): The application string to search for.
+
+    Returns:
+        bool: True if the application string is found in the path string, False otherwise.
+    """
+    return app.lower() in path.lower()
+
+
+def filter_app(df: pd.DataFrame, app: str, columns: list[str] = None) -> pd.DataFrame:
+    """
+    Filter a DataFrame to include only rows where a specified application string is found in the given columns or in the 'causality_actor_process_image_path' column.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to be filtered.
+        app (str): The application string to search for.
+        columns (list[str], optional): List of column names to search within. Defaults to None, which means all columns are searched.
+
+    Returns:
+        pd.DataFrame: A new DataFrame containing only the rows where the application string is found in the specified columns or in the 'causality_actor_process_image_path' column.
+
+    Raises:
+        ValueError: If none of the specified columns are found in the DataFrame.
+    """
+    if columns is None:
+        columns = df.columns.tolist()
+
+    valid_columns = [col for col in columns if col in df.columns]
+    if not valid_columns:
+        raise ValueError("No valid search columns found in DataFrame.")
+
+    if 'causality_actor_process_image_path' in df.columns:
+        app_filtered_df = df[df['causality_actor_process_image_path'].apply(lambda x: is_application_in_path(x, app))]
+
+    return app_filtered_df[columns]
+
+
+def save_csv (df: pd.DataFrame, output_file: str):
+    """
+    Saves a DataFrame to a CSV file.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame to be saved.
+    - output_file (str): The path to the output CSV file.
+
+    Returns:
+    - None
+    """
+    df.to_csv(output_file, index=False)
+
+
+def save_apps_csv(df: pd.DataFrame, applications: list[str], directory: str):
+    """
+    Saves a filtered version of the DataFrame to CSV files for each application.
+
+    This function iterates over a list of applications, filters the DataFrame for each application,
+    and saves the filtered DataFrame to a CSV file named after the application in the specified directory.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame to be filtered and saved.
+    - applications (list[str]): A list of application names to filter the DataFrame.
+    - directory (str): The directory where the CSV files will be saved.
+
+    Returns:
+    - None
+    """
+    for app in applications:
+        filtered_df = filter_app(df, app)
+        output_file = directory + f'{app}.csv'
+        if len(filtered_df) > 1:
+            save_csv(filtered_df, output_file)
+
+    
+def is_standard_application(path: str, applications: list[str]) -> bool:
+    """
+    Checks if any of the standard application names are present in the given file path.
+
+    Parameters:
+    - path (str): The file path to check.
+    - applications (list[str]): A list of standard application names to look for.
+
+    Returns:
+    - bool: True if any of the application names are found in the file path, False otherwise.
+    """
+    return any(app.lower() in path.lower() for app in applications)
+
+
+def filter_standard_applications(df: pd.DataFrame, applications: list[str]) -> pd.DataFrame:
+    """
+    Identifies and filters standard applications in a DataFrame based on process image paths.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame containing the following columns:
+        - `os_actor_process_image_path` (str): File path for the OS actor process image.
+        - `causality_actor_process_image_path` (str): File path for the causality actor process image.
+    - applications (list[str]): A list of standard application names to look for.
+
+    Returns:
+    - pd.DataFrame: A DataFrame filtered to only include rows where both 
+      `os_actor_process_image_path` and `causality_actor_process_image_path` correspond to standard applications.
+    """
+    df['is_standard_application'] = df.apply(
+        lambda row: (
+            is_standard_application(row['os_actor_process_image_path'], applications) and
+            is_standard_application(row['causality_actor_process_image_path'], applications)
+        ),
+        axis=1
+    )
+
+    return df[df['is_standard_application']]
+
+
+def find_app_to_domain(df: pd.DataFrame, apps: list[str]) -> pd.DataFrame:
+    """
+    Associates registered domains with standard applications based on process image paths.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame containing the following columns:
+        - `registered_domain` (str): The registered domain.
+        - `os_actor_process_image_path` (str): File path for the OS actor process image.
+    - apps (list[str]): A list of standard application names to look for.
+
+    Returns:
+    - pd.DataFrame: A DataFrame containing the registered domains and associated applications,
+      where each row represents a domain and its associated applications.
+    """
+    results = []
+
+    for domain in df['registered_domain'].unique():
+        domain_df = df[df['registered_domain'] == domain]
+        
+        associated_apps = []
+        for app in apps:
+            if domain_df['os_actor_process_image_path'].apply(lambda x: is_application_in_path(x, app)).any():
+                associated_apps.append(app)
+        
+        results.append({
+            'registered_domain': domain,
+            'dst_action_external_hostname': ', '.join(associated_apps)
+        })
+
+    return pd.DataFrame(results)
+
+
+def combination_host_and_path(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Filters and removes duplicate combinations of process image paths and registered domains.
+
+    Parameters:
+    - df (pd.DataFrame): The DataFrame containing the following columns:
+        - `causality_actor_process_image_path` (str): The path of the causality actor process image.
+        - `registered_domain` (str): The registered domain.
+    
+    Returns:
+    - pd.DataFrame: A DataFrame containing unique combinations of process image paths and registered domains,
+      excluding records where `registered_domain` is 'No DNS Record found'.
+    """
+
+    df = df[df['registered_domain'] != 'No DNS Record found']
+    
+    unique_df = df.drop_duplicates(subset=['causality_actor_process_image_path', 'registered_domain'])
+    
+    return unique_df
+
+
+def process_csv(input_csv_path: str, output_csv_path: str) -> None:
+    """
+    Processes a CSV file to generate a new CSV with unique paths and associated endpoints.
+
+    This function reads an input CSV file, filters and groups data by the unique paths found 
+    in the 'causality_actor_process_image_path' column, and creates a set of associated 
+    endpoints from the 'action_remote_ip' and 'dst_action_external_hostname' columns. 
+    endpoints with null or blank values are excluded. The result is saved to a new CSV file.
+
+    Parameters:
+    - input_csv_path (str): The file path to the input CSV file.
+    - output_csv_path (str): The file path where the output CSV file will be saved.
+    
+    Returns:
+    - None: The function writes the results directly to the specified output CSV file.
+    
+    Output CSV Structure:
+    - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
+    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns associated with each path.
+    """
+    df = pd.read_csv(input_csv_path)
+
+    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
+    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
+
+    def get_endpoints(group):
+        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
+
+    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
+
+    result.columns = ['causality_actor_process_image_path', 'endpoints']
+
+    result.to_csv(output_csv_path, index=False)
