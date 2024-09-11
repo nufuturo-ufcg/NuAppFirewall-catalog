@@ -1,0 +1,7 @@
+rules-catalog/data/
+rules-catalog/managers/__pycache__/
+rules-catalog/mappers/__pycache__/
+rules-catalog/test/__pycache__/
+rules-catalog/utils/__pycache__/
+rules-catalog/config/__pycache__/
+rules-catalog/module/__pycache__/
