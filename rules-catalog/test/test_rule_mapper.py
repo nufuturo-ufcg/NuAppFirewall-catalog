@@ -19,7 +19,7 @@ class TestMapCortexLogToLuluRule(unittest.TestCase):
         valid_rule = {
             'key': '/path/to/image1',
             'action': 'allow',
-            'appLocation': '/path/to/image1',
+            'path': '/path/to/image1',
             'endpoints': {'192.168.1.1','host.com'},
             'direction': 'outgoing'
             }
