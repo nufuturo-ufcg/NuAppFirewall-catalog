@@ -14,10 +14,6 @@ This document describes the mapping between properties of NuAppFirewall and EDR.
 | **endpoints**           | action_remote_ip and dst_action_external_hostname | Yes       |
 | **direction**           | (NM) 'outgoing' or 'ingoing' (defined according to rules)                    | Yes       |
 
-### Explicações e Notas:
-
-Aqui estão as descrições detalhadas das propriedades para o mapeamento atualizado:
-
 ### Property Descriptions
 
 1. **key**
