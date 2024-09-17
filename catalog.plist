@@ -7,7 +7,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Install macOS Monterey.app/Contents/Frameworks/OSInstallerSetup.framework/Versions/A/Resources/osinstallersetupd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -22,7 +22,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Install macOS Monterey.app/Contents/Resources/startosinstall</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -37,7 +37,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Install macOS Sonoma.app/Contents/Frameworks/OSInstallerSetup.framework/Versions/A/Resources/osinstallersetupd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -52,7 +52,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Install macOS Ventura.app/Contents/Frameworks/OSInstallerSetup.framework/Versions/A/Resources/osinstallersetupd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -67,7 +67,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-14.2.0.app/Contents/MacOS/Xcode</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -82,7 +82,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-14.2.0.app/Contents/SharedFrameworks/DVTSourceControl.framework/Versions/A/XPCServices/com.apple.dt.Xcode.sourcecontrol.Git.xpc/Contents/MacOS/com.apple.dt.Xcode.sourcecontrol.Git</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -97,7 +97,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-14.2.app/Contents/MacOS/Xcode</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -112,7 +112,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-14.2.app/Contents/SharedFrameworks/DVTSourceControl.framework/Versions/A/XPCServices/com.apple.dt.Xcode.sourcecontrol.Git.xpc/Contents/MacOS/com.apple.dt.Xcode.sourcecontrol.Git</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -127,7 +127,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-15.2.0.app/Contents/MacOS/Xcode</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -142,7 +142,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-15.2.0.app/Contents/PlugIns/IDEAnalyticsMetricsNotifications.framework/Versions/A/XPCServices/com.apple.dt.Xcode.IDEAnalyticsMetricsNotificationsService.xpc/Contents/MacOS/com.apple.dt.Xcode.IDEAnalyticsMetricsNotificationsService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -157,7 +157,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-15.2.0.app/Contents/SharedFrameworks/DVTITunesSoftware.framework/Versions/A/XPCServices/com.apple.dt.Xcode.ITunesSoftwareService.xpc/Contents/MacOS/com.apple.dt.Xcode.ITunesSoftwareService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -172,7 +172,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-15.2.0.app/Contents/SharedFrameworks/DVTSourceControl.framework/Versions/A/XPCServices/com.apple.dt.Xcode.sourcecontrol.Git.xpc/Contents/MacOS/com.apple.dt.Xcode.sourcecontrol.Git</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -187,7 +187,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode-15.2.0.app/Contents/SharedFrameworks/XCSourceControl.framework/Versions/A/XPCServices/com.apple.dt.GitHubHostBuiltInExtension.xpc/Contents/MacOS/com.apple.dt.GitHubHostBuiltInExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -202,7 +202,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode.app/Contents/Developer/usr/bin/actool</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -217,7 +217,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode.app/Contents/MacOS/Xcode</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -232,7 +232,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode.app/Contents/SharedFrameworks/DVTITunesSoftware.framework/Versions/A/XPCServices/com.apple.dt.Xcode.ITunesSoftwareService.xpc/Contents/MacOS/com.apple.dt.Xcode.ITunesSoftwareService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -247,7 +247,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode.app/Contents/SharedFrameworks/DVTSourceControl.framework/Versions/A/XPCServices/com.apple.dt.Xcode.sourcecontrol.Git.xpc/Contents/MacOS/com.apple.dt.Xcode.sourcecontrol.Git</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -262,7 +262,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/Xcode.app/Contents/SharedFrameworks/XCSourceControl.framework/Versions/A/XPCServices/com.apple.dt.GitHubHostBuiltInExtension.xpc/Contents/MacOS/com.apple.dt.GitHubHostBuiltInExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -277,7 +277,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Applications/YouTube Music Desktop App.app/Contents/MacOS/YouTube Music Desktop App</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -292,7 +292,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/CoreServices/MRT.app/Contents/MacOS/MRT</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -307,7 +307,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/CoreServices/SafariSupport.bundle/Contents/MacOS/PasswordBreachAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -322,7 +322,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -337,7 +337,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/Resources/MobileDeviceUpdater.app/Contents/MacOS/MobileDeviceUpdater</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -352,7 +352,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/Resources/usbmuxd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -367,7 +367,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/PrivateFrameworks/RemotePairing.framework/Versions/A/XPCServices/remotepairingd.xpc/Contents/MacOS/remotepairingd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -382,7 +382,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/StagedFrameworks/Safari/SafariShared.framework/Versions/A/XPCServices/com.apple.Safari.SearchHelper.xpc/Contents/MacOS/com.apple.Safari.SearchHelper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -397,7 +397,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Apple/System/Library/StagedFrameworks/Safari/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -412,7 +412,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -427,7 +427,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Developer/CoreSimulator/Volumes/iOS_21C62/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 17.2.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/xpcproxy_sim</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -442,7 +442,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Developer/PrivateFrameworks/CoreDevice.framework/Versions/A/XPCServices/CoreDeviceService.xpc/Contents/MacOS/CoreDeviceService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -457,7 +457,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/simulator-trampoline</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -472,7 +472,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/SimulatorTrampoline.xpc/Contents/MacOS/SimulatorTrampoline</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -487,7 +487,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/App Store.app/Contents/MacOS/App Store</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -502,7 +502,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Books.app/Contents/MacOS/Books</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -517,7 +517,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Calendar.app/Contents/MacOS/Calendar</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -532,7 +532,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Dictionary.app/Contents/MacOS/Dictionary</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -547,7 +547,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/FaceTime.app/Contents/MacOS/FaceTime</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -562,7 +562,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/FaceTime.app/Contents/XPCServices/FaceTimeNotificationCenterService.xpc/Contents/MacOS/FaceTimeNotificationCenterService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -577,7 +577,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/FindMy.app/Contents/MacOS/FindMy</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -592,7 +592,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/FindMy.app/Contents/PlugIns/FindMyWidgetIntentsPeople.appex/Contents/MacOS/FindMyWidgetIntentsPeople</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -607,7 +607,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Freeform.app/Contents/MacOS/Freeform</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -622,7 +622,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Home.app/Contents/MacOS/Home</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -637,7 +637,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Mail.app/Contents/MacOS/Mail</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -652,7 +652,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Maps.app/Contents/MacOS/Maps</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -667,7 +667,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Messages.app/Contents/MacOS/Messages</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -682,7 +682,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Music.app/Contents/MacOS/Music</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -697,7 +697,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/News.app/Contents/MacOS/News</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -712,7 +712,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/News.app/Contents/PlugIns/NewsTag.appex/Contents/MacOS/NewsTag</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -727,7 +727,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/News.app/Contents/PlugIns/NewsToday2.appex/Contents/MacOS/NewsToday2</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -742,7 +742,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/News.app/Contents/PlugIns/NewsTodayIntents.appex/Contents/MacOS/NewsTodayIntents</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -757,7 +757,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Notes.app/Contents/MacOS/Notes</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -772,7 +772,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Photos.app/Contents/MacOS/Photos</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -787,7 +787,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Podcasts.app/Contents/MacOS/Podcasts</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -802,7 +802,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/QuickTime Player.app/Contents/MacOS/QuickTime Player</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -817,7 +817,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Reminders.app/Contents/MacOS/Reminders</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -832,7 +832,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Shortcuts.app/Contents/MacOS/Shortcuts</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -847,7 +847,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Stocks.app/Contents/MacOS/Stocks</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -862,7 +862,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Stocks.app/Contents/PlugIns/StocksDetailIntents.appex/Contents/MacOS/StocksDetailIntents</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -877,7 +877,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Stocks.app/Contents/PlugIns/StocksWidget.appex/Contents/MacOS/StocksWidget</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -892,7 +892,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/System Preferences.app/Contents/MacOS/System Preferences</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -907,7 +907,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/TV.app/Contents/MacOS/TV</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -922,7 +922,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/TextEdit.app/Contents/MacOS/TextEdit</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -937,7 +937,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Utilities/Activity Monitor.app/Contents/MacOS/Activity Monitor</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -952,7 +952,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Utilities/AirPort Utility.app/Contents/MacOS/AirPort Utility</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -967,7 +967,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Utilities/Screen Sharing.app/Contents/MacOS/Screen Sharing</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -982,7 +982,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Utilities/System Information.app/Contents/MacOS/System Information</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -997,7 +997,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1012,7 +1012,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Weather.app/Contents/MacOS/Weather</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1027,7 +1027,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Applications/Weather.app/Contents/PlugIns/WeatherWidget.appex/Contents/MacOS/WeatherWidget</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1042,7 +1042,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/AddPrinter.app/Contents/MacOS/AddPrinter</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1057,7 +1057,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Applications/Screen Sharing.app/Contents/MacOS/Screen Sharing</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1072,7 +1072,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Captive Network Assistant.app/Contents/MacOS/Captive Network Assistant</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1087,7 +1087,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/ClimateProxy.app/Contents/PlugIns/WeatherWidget.appex/Contents/MacOS/WeatherWidget</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1102,7 +1102,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1117,7 +1117,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/CoreServicesUIAgent.app/Contents/MacOS/CoreServicesUIAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1132,7 +1132,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/CrashReporterSupportHelper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1147,7 +1147,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Dock.app/Contents/XPCServices/com.apple.dock.extra.xpc/Contents/MacOS/com.apple.dock.extra</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1162,7 +1162,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Finder.app/Contents/MacOS/Finder</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1177,7 +1177,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Help Viewer.app/Contents/MacOS/Help Viewer</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1192,7 +1192,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/HelpViewer.app/Contents/MacOS/HelpViewer</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1207,7 +1207,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Installer.app/Contents/MacOS/Installer</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1222,7 +1222,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/ManagedClient.app/Contents/MacOS/ManagedClient</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1237,7 +1237,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/NetAuthAgent.app/Contents/MacOS/NetAuthSysAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1252,7 +1252,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Problem Reporter.app/Contents/MacOS/Problem Reporter</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1267,7 +1267,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Screen Time.app/Contents/PlugIns/ScreenTimeWidgetExtension.appex/Contents/MacOS/ScreenTimeWidgetExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1282,7 +1282,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Setup Assistant.app/Contents/MacOS/Setup Assistant</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1297,7 +1297,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/mbuseragent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1312,7 +1312,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Siri.app/Contents/MacOS/Siri</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1327,7 +1327,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Siri.app/Contents/XPCServices/SiriNCService.xpc/Contents/MacOS/SiriNCService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1342,7 +1342,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdate_firstrun_tasks</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1357,7 +1357,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdated</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1372,7 +1372,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1387,7 +1387,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Stocks.app/Contents/PlugIns/com.apple.ncplugin.stocks.appex/Contents/MacOS/com.apple.ncplugin.stocks</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1402,7 +1402,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/StocksWidget.app/Contents/PlugIns/com.apple.ncplugin.stocks.appex/Contents/MacOS/com.apple.ncplugin.stocks</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1417,7 +1417,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/SubmitDiagInfo</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1432,7 +1432,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1447,7 +1447,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Tips.app/Contents/MacOS/Tips</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1462,7 +1462,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/Tips.app/Contents/PlugIns/TipsWidget.appex/Contents/MacOS/TipsWidget</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1477,7 +1477,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/WiFiAgent.app/Contents/MacOS/WiFiAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1492,7 +1492,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/destinationd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1507,7 +1507,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/diagnostics_agent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1522,7 +1522,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/launchservicesd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1537,7 +1537,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1552,7 +1552,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/CoreServices/mapspushd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1567,7 +1567,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/AboutExtension.appex/Contents/MacOS/AboutExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1582,7 +1582,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/AppleIDSettings.appex/Contents/MacOS/AppleIDSettings</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1597,7 +1597,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/CoverageSettings.appex/Contents/MacOS/CoverageSettings</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1612,7 +1612,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/FamilySettings.appex/Contents/MacOS/FamilySettings</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1627,7 +1627,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/InternetAccountsSettingsExtension.appex/Contents/MacOS/InternetAccountsSettingsExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1642,7 +1642,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/PrinterScannerSettings.appex/Contents/MacOS/PrinterScannerSettings</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1657,7 +1657,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/ScreenTimePreferencesExtension.appex/Contents/MacOS/ScreenTimePreferencesExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1672,7 +1672,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/ExtensionKit/Extensions/WalletSettingsExtension.appex/Contents/MacOS/WalletSettingsExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1687,7 +1687,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1702,7 +1702,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/AddressBook.framework/Versions/A/Helpers/AddressBookSourceSync.app/Contents/MacOS/AddressBookSourceSync</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1717,7 +1717,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/AppKit.framework/Versions/C/XPCServices/com.apple.appkit.xpc.openAndSavePanelService.xpc/Contents/MacOS/com.apple.appkit.xpc.openAndSavePanelService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1732,7 +1732,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A/printtool</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1747,7 +1747,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/CFNetwork.framework/Versions/A/Support/CFNetworkAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1762,7 +1762,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/ClassKit.framework/Versions/A/progressd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1777,7 +1777,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/CoreAudio.framework/Versions/A/XPCServices/com.apple.audio.Core-Audio-Driver-Service.helper.xpc/Contents/MacOS/com.apple.audio.Core-Audio-Driver-Service.helper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1792,7 +1792,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1807,7 +1807,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1822,7 +1822,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/GSS.framework/Helpers/GSSCred</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1837,7 +1837,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/NetworkExtension.framework/PlugIns/NEIKEv2Provider.appex/Contents/MacOS/NEIKEv2Provider</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1852,7 +1852,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/QuickLookUI.framework/Versions/A/Resources/QuickLookUIHelper.app/Contents/MacOS/QuickLookUIHelper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1867,7 +1867,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Security.framework/Versions/A/MachServices/SecurityAgent.bundle/Contents/MacOS/SecurityAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1882,7 +1882,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Security.framework/Versions/A/MachServices/SecurityAgent.bundle/Contents/XPCServices/SecurityAgentHelper-arm64.xpc/Contents/MacOS/SecurityAgentHelper-arm64</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1897,7 +1897,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Security.framework/Versions/A/MachServices/SecurityAgent.bundle/Contents/XPCServices/SecurityAgentHelper-x86_64.xpc/Contents/MacOS/SecurityAgentHelper-x86_64</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1912,7 +1912,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Security.framework/Versions/A/XPCServices/authd.xpc/Contents/MacOS/authd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1927,7 +1927,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Security.framework/authtrampoline</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1942,7 +1942,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/ShazamKit.framework/shazamd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1957,7 +1957,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/StoreKit.framework/Support/storekitagent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1972,7 +1972,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Translation.framework/translationd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -1987,7 +1987,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.Installation.xpc/Contents/MacOS/com.apple.Virtualization.Installation</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2002,7 +2002,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2017,7 +2017,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Image Capture/Devices/AirScanScanner.app/Contents/MacOS/AirScanScanner</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2032,7 +2032,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/Image Capture/Support/icdd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2047,7 +2047,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PreferencePanes/AppleIDPrefPane.prefPane/Contents/XPCServices/com.apple.preferences.AppleIDPrefPane.remoteservice.xpc/Contents/MacOS/com.apple.preferences.AppleIDPrefPane.remoteservice</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2062,7 +2062,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PreferencePanes/Network.prefPane/Contents/XPCServices/com.apple.preference.network.remoteservice.xpc/Contents/MacOS/com.apple.preference.network.remoteservice</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2077,7 +2077,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PreferencePanes/SoftwareUpdate.prefPane/Contents/XPCServices/com.apple.preferences.softwareupdate.remoteservice.xpc/Contents/MacOS/com.apple.preferences.softwareupdate.remoteservice</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2092,7 +2092,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2107,7 +2107,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ApplePushService.framework/apsd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2122,7 +2122,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2137,7 +2137,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CalendarAgent.framework/Executables/CalendarAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2152,7 +2152,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/Categories.framework/Versions/A/XPCServices/CategoriesService.xpc/Contents/MacOS/CategoriesService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2167,7 +2167,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2182,7 +2182,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerce</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2197,7 +2197,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerced</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2212,7 +2212,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeassetd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2227,7 +2227,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/AssetCacheProfilePlugin.xpc/Contents/MacOS/AssetCacheProfilePlugin</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2242,7 +2242,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/BTMProfileService.xpc/Contents/MacOS/BTMProfileService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2257,7 +2257,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/CertificateService.xpc/Contents/MacOS/CertificateService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2272,7 +2272,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/FileVaultEscrowService.xpc/Contents/MacOS/FileVaultEscrowService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2287,7 +2287,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/MDMService.xpc/Contents/MacOS/MDMService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2302,7 +2302,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/PlugInKitService.xpc/Contents/MacOS/PlugInKitService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2317,7 +2317,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/SystemExtensionsMDM.xpc/Contents/MacOS/SystemExtensionsMDM</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2332,7 +2332,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ConfigurationProfiles.framework/XPCServices/SystemPolicyService.xpc/Contents/MacOS/SystemPolicyService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2347,7 +2347,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CoreFollowUp.framework/Versions/A/Support/followupd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2362,7 +2362,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CoreParsec.framework/parsec-fbf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2377,7 +2377,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/CoreParsec.framework/parsecd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2392,7 +2392,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2407,7 +2407,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/GeoServices.framework/geodMachServiceBridge</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2422,7 +2422,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/HelpData.framework/Versions/A/Resources/helpd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2437,7 +2437,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/IMFoundation.framework/XPCServices/IMRemoteURLConnectionAgent.xpc/Contents/MacOS/IMRemoteURLConnectionAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2452,7 +2452,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/Lookup.framework/Versions/A/XPCServices/LookupViewService.xpc/Contents/MacOS/LookupViewService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2467,7 +2467,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/MessagesKit.framework/Versions/A/Resources/soagent.app/Contents/MacOS/soagent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2482,7 +2482,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/XPCServices/EAUpdaterService.xpc/Contents/MacOS/EAUpdaterService</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2497,7 +2497,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/Noticeboard.framework/Versions/A/Resources/nbagent.app/Contents/MacOS/nbagent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2512,7 +2512,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/installd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2527,7 +2527,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/Resources/system_installd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2542,7 +2542,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/PackageKit.framework/Versions/A/XPCServices/package_script_service.xpc/Contents/MacOS/package_script_service</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2557,7 +2557,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/SafariSafeBrowsing.framework/Versions/A/com.apple.Safari.SafeBrowsing.Service</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2572,7 +2572,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/ScreenTimeCore.framework/Versions/A/ScreenTimeAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2587,7 +2587,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/Tourist.framework/Versions/A/Resources/touristd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2602,7 +2602,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Library/PrivateFrameworks/iCloudNotification.framework/iCloudNotificationAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2617,7 +2617,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2632,7 +2632,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/System/Library/CoreServices/PasswordsSettingsExtension.appex/Contents/MacOS/PasswordsSettingsExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2647,7 +2647,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/System/Library/CoreServices/Web App.app/Contents/MacOS/Web App</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2662,7 +2662,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/System/Library/StagedFrameworks/Safari/SafariShared.framework/Versions/A/XPCServices/com.apple.Safari.SearchHelper.xpc/Contents/MacOS/com.apple.Safari.SearchHelper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2677,7 +2677,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/System/Library/StagedFrameworks/Safari/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2692,7 +2692,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/System/Library/StagedFrameworks/Safari/WebPrivacy.framework/Versions/A/XPCServices/com.apple.WebPrivacy.Service.xpc/Contents/MacOS/com.apple.WebPrivacy.Service</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2707,7 +2707,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/usr/libexec/AuthenticationServicesAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2722,7 +2722,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/usr/libexec/PasswordBreachAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2737,7 +2737,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/App/usr/libexec/SafariNotificationAgent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2752,7 +2752,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2767,7 +2767,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/PrivateFrameworks/SafariShared.framework/Versions/A/XPCServices/com.apple.Safari.SearchHelper.xpc/Contents/MacOS/com.apple.Safari.SearchHelper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2782,7 +2782,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/OS/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2797,7 +2797,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/OS/System/Library/PrivateFrameworks/SafariPlatformSupport.framework/Versions/A/XPCServices/com.apple.SafariPlatformSupport.Helper.xpc/Contents/MacOS/com.apple.SafariPlatformSupport.Helper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2812,7 +2812,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/Volumes/Preboot/Cryptexes/OS/System/iOSSupport/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2827,7 +2827,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/iOSSupport/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2842,7 +2842,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/iOSSupport/System/Library/PrivateFrameworks/AppleMediaServicesUI.framework/PlugIns/UtilityExtension_catalyst.appex/Contents/MacOS/UtilityExtension_catalyst</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2857,7 +2857,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/System/iOSSupport/System/Library/PrivateFrameworks/SearchToShareCore.framework/Plugins/HashtagImagesExtension.appex/Contents/MacOS/HashtagImagesExtension</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2872,7 +2872,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/Users/marco.leyva/Library/Application Support/dev.warp.Warp-Stable/old</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2887,7 +2887,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/bin/bash</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2902,7 +2902,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/bin/sh</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2917,7 +2917,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/bin/zsh</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2932,7 +2932,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.23.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2947,7 +2947,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.23.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2962,7 +2962,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.23.4/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2977,7 +2977,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.24.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -2992,7 +2992,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.24.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3007,7 +3007,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.24.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3022,7 +3022,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.24.4/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3037,7 +3037,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.25.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3052,7 +3052,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.25.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3067,7 +3067,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.25.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3082,7 +3082,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.25.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3097,7 +3097,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.26.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3112,7 +3112,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.26.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3127,7 +3127,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.26.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3142,7 +3142,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.26.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3157,7 +3157,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.27.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3172,7 +3172,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.27.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3187,7 +3187,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.27.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3202,7 +3202,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.27.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3217,7 +3217,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.27.4/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3232,7 +3232,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.28.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3247,7 +3247,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.28.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3262,7 +3262,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.28.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3277,7 +3277,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.28.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3292,7 +3292,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.28.5/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3307,7 +3307,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.29.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3322,7 +3322,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.29.4/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3337,7 +3337,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/opt/homebrew/Cellar/telegraf/1.29.5/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3352,7 +3352,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/sbin/launchd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3367,7 +3367,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/codesign</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3382,7 +3382,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/curl</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3397,7 +3397,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/env</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3412,7 +3412,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/login</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3427,7 +3427,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/python3</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3442,7 +3442,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/ruby</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3457,7 +3457,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/script</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3472,7 +3472,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/bin/sysdiagnose</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3487,7 +3487,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/AirPlayXPCHelper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3502,7 +3502,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/adprivacyd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3517,7 +3517,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/captiveagent</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3532,7 +3532,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/configd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3547,7 +3547,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/keyboardservicesd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3562,7 +3562,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/locationd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3577,7 +3577,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/mdmclient</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3592,7 +3592,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/nsurlsessiond</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3607,7 +3607,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/rtcreportingd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3622,7 +3622,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/sshd-keygen-wrapper</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3637,7 +3637,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/studentd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3652,7 +3652,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/timed</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3667,7 +3667,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/trustd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3682,7 +3682,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/libexec/xpcproxy</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3697,7 +3697,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.23.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3712,7 +3712,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.24.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3727,7 +3727,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.24.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3742,7 +3742,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.25.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3757,7 +3757,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.25.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3772,7 +3772,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.26.0/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3787,7 +3787,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.27.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3802,7 +3802,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.27.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3817,7 +3817,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.28.2/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3832,7 +3832,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.28.3/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3847,7 +3847,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.28.5/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3862,7 +3862,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.29.1/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3877,7 +3877,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.29.4/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3892,7 +3892,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/local/Cellar/telegraf/1.29.5/bin/telegraf</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3907,7 +3907,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/BTLEServer</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3922,7 +3922,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/coreaudiod</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3937,7 +3937,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/cron</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3952,7 +3952,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/cupsd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3967,7 +3967,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/gssd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3982,7 +3982,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/netbiosd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -3997,7 +3997,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/ocspd</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -4012,7 +4012,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/racoon</string>
 			<key>direction</key>
 			<string>outgoing</string>
@@ -4027,7 +4027,7 @@
 		<dict>
 			<key>action</key>
 			<string>allow</string>
-			<key>appLocation</key>
+			<key>path</key>
 			<string>/usr/sbin/spindump</string>
 			<key>direction</key>
 			<string>outgoing</string>

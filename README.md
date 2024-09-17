@@ -34,46 +34,46 @@ This repository contains tools for managing and creating rule catalogs for the N
 
 Follow these steps:
 
-1. **Download or Clone Repository**: If you haven't already, download or clone the repository containing the rules-catalog/ folder to your local machine.
+1. **Download or Clone Repository**: If you haven't already, download or clone the repository containing the `rules-catalog/` folder to your local machine.
 
     ```bash
     git clone https://github.com/nufuturo-ufcg/nu-app-firewall-catalog.git
     ```
 
-2. **Navigate to Repository Directory**: Open a terminal or command prompt and navigate to the directory where you downloaded or cloned the repository. You can use the cd command followed by the path to the directory.
+2. **Navigate to Repository Directory**: Open a terminal or command prompt and navigate to the directory where you downloaded or cloned the repository.
 
     ```bash
     cd path/to/repository/rules-catalog/
     ```
 
-3. **Modify consts.py**: Open the consts.py file in a text editor of your choice. Replace the placeholder values. Save and close the consts.py file.
+3. **Install Dependencies**: Ensure you have Python installed and run the following command to install the required dependencies:
 
-4. **Install Dependencies**: Ensure you have Python installed and run the following command to install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-5. **Prepare Your Data**: Make sure you have the EDR logs that you want to use for creating the rules catalog.
+4. **Prepare Your Data**: Ensure you have the EDR logs that you want to use for creating the rules catalog.
 
-6. **Run the Main Script**: Use the `main.py` script located in the `rules-catalog` directory to generate the rules catalog:
+5. **Run the main script**: Use the `main.py` script located in the `rules-catalog` directory to generate the rules catalog by providing the input CSV file with `-i` and providing the path to the output with `-o`:
 
-   ```bash
-   python main.py
-   ```
+    ```bash
+    python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog
+    ```
 
-   This script will process the data and create a catalog in .json based on the predefined mappings.
+    This will process the input CSV file and generate a catalog in JSON format.
 
-7. **Output .plist file**: If needed to output .plist file instead of json, please run the following code :
+6. **Output in .plist Format**: To generate a `.plist` output instead of JSON, run the script with the following command:
 
-   ```bash
-   python main.py -o plist
-   ```
-8. **Run tests**: Run all tests in subdirectory /test file using --test by executing the following command:
+    ```bash
+    python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --plist-format xml
+    ```
 
-   ```bash
-   python main.py --test
-   ```
+7. **Run Tests**: To run all tests located in the `/test` directory, use the `--test` flag:
 
-This process will generate a rules catalog that can be used with Nu-App Firewall, ensuring your configurations are correctly applied. 
+    ```bash
+    python main.py --test
+    ```
+
+This process will generate a rules catalog compatible with the Nu-App Firewall, ensuring your configurations are applied correctly.
 
 For more details, refer to the specific README files in each module's directory.

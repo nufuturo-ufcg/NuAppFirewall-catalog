@@ -10,7 +10,7 @@ This document describes the mapping between properties of NuAppFirewall and EDR.
 |-------------------------|---------------------------------------------|-----------|
 | **key**                 | causality_actor_process_image_path                           | Yes       |
 | **action**              | (NM) 'allow', 'block', or 'nolog' (defined according to rules) | Yes       |
-| **appLocation**         | causality_actor_process_image_path | Yes       |
+| **path**         | causality_actor_process_image_path | Yes       |
 | **endpoints**           | action_remote_ip and dst_action_external_hostname | Yes       |
 | **direction**           | (NM) 'outgoing' or 'ingoing' (defined according to rules)                    | Yes       |
 
@@ -28,7 +28,7 @@ Aqui estão as descrições detalhadas das propriedades para o mapeamento atuali
    - **Description**: Defines the action that the rule will enforce, which can be 'allow', 'block', or 'nolog'.
    - **Usage**: Specifies the enforcement behavior of the rule on the network traffic.
 
-3. **appLocation**
+3. **path**
    - **Description**: Indicates the location or path of the application or process image that the rule is associated with.
    - **Usage**: Used to pinpoint the exact location of the application or process being regulated by the rule.
 
