@@ -57,7 +57,7 @@ def main():
         consts.NETWORK_ACCESS_LOGS_CSV_PATH = args.input
         consts.RULES_FILE_PATH = args.output
 
-        mod.process_csv(consts.NETWORK_ACCESS_LOGS_CSV_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_sv_file(consts.NETWORK_ACCESS_LOGS_CSV_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
 
         network_access_logs_dict = read_csv(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
         rules_dict = create_rules_dict(network_access_logs_dict)
