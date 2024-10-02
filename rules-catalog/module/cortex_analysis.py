@@ -1,3 +1,5 @@
+import re
+import sys
 import pandas as pd
 import tldextract as tld
 import ipaddress
@@ -399,17 +401,17 @@ def combination_host_and_path(df: pd.DataFrame) -> pd.DataFrame:
     return unique_df
 
 
-def process_csv(input_csv_path: str, output_csv_path: str) -> None:
+def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     """
-    Processes a CSV file to generate a new CSV with unique paths and associated endpoints.
+    Processes a CSV or TSV file to generate a new CSV with unique paths and associated endpoints.
 
-    This function reads an input CSV file, filters and groups data by the unique paths found 
+    This function reads an input CSV or TSV file, filters and groups data by the unique paths found 
     in the 'causality_actor_process_image_path' column, and creates a set of associated 
     endpoints from the 'action_remote_ip' and 'dst_action_external_hostname' columns. 
     endpoints with null or blank values are excluded. The result is saved to a new CSV file.
 
     Parameters:
-    - input_csv_path (str): The file path to the input CSV file.
+    - input_sv_file_path (str): The file path to the input CSV or TSV file.
     - output_csv_path (str): The file path where the output CSV file will be saved.
     
     Returns:
@@ -420,8 +422,15 @@ def process_csv(input_csv_path: str, output_csv_path: str) -> None:
     - endpoints (set): A set of unique values from the 'action_remote_ip' and 
       'dst_action_external_hostname' columns associated with each path.
     """
-    df = pd.read_csv(input_csv_path)
-
+    
+    if re.match(r'^.*\.csv$', input_sv_file_path) is not None:
+        df = pd.read_csv(input_sv_file_path)
+    elif re.match(r'^.*\.tsv$', input_sv_file_path) is not None:
+        df = pd.read_csv(input_sv_file_path, sep='\t')
+    else:
+        print('The given file format is not supported, only CSV or TSV')
+        sys.exit()
+        
     df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
     df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 

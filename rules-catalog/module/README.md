@@ -223,9 +223,9 @@ Generates a DataFrame mapping hosts (registered domains) to all paths in the `ca
 **Returns:**
 - `pd.DataFrame`: DataFrame containing all unique combinations of paths and registered domains.
 
-#### `process_csv(input_csv_path, output_csv_path)`
+#### `process_sv_file(input_csv_path, output_csv_path)`
 
-Processes a CSV file and generates a new CSV file with the association between paths and all possible endpoints, grouped by all recorded events.
+Processes a CSV or TSV file and generates a new CSV file with the association between paths and all possible endpoints, grouped by all recorded events.
 
 **Parameters:**
 - `input_csv_path (str)`: Path to the input CSV file.
