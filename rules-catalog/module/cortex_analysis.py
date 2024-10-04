@@ -490,15 +490,15 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
 
     directory = os.scandir(absolute_path)
     for entry in directory :
-        if entry.is_file() and df == None:
+        if entry.is_file() and df is None:
             df = read_sv_file(absolute_path + entry.name)
-        elif entry.is_file() and df != None:
+        elif entry.is_file() and df is not None:
             df_to_concat = read_sv_file(absolute_path + entry.name)
             
-            if df_to_concat != None:
+            if df_to_concat is not None:
                 df = pd.concat([df, df_to_concat])
 
-    if df == None:
+    if df is None:
         print("There is no CSV or TSV file inside the given directory")
         sys.exit()
 
