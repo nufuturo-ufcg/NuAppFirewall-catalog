@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 import pandas as pd
@@ -400,6 +401,23 @@ def combination_host_and_path(df: pd.DataFrame) -> pd.DataFrame:
     
     return unique_df
 
+def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
+    """
+    Process a CSV or TSV file to generate a corresponding Pandas DataFrame.
+
+    Parameters:
+    - input_sv_file_path (str): The file path to the input CSV or TSV file.
+
+    Returns:
+    - pd.DataFrame: A DataFrame containing all of the information given by the C/TSV file
+      or None if the given file isn't a CSV or TSV.  
+    """
+    if re.match(r'^.*\.csv$', input_sv_file_path) is not None:
+        return pd.read_csv(input_sv_file_path)
+    elif re.match(r'^.*\.tsv$', input_sv_file_path) is not None:
+        return pd.read_csv(input_sv_file_path, sep='\t')
+    else:
+        return None
 
 def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     """
@@ -423,14 +441,67 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
       'dst_action_external_hostname' columns associated with each path.
     """
     
-    if re.match(r'^.*\.csv$', input_sv_file_path) is not None:
-        df = pd.read_csv(input_sv_file_path)
-    elif re.match(r'^.*\.tsv$', input_sv_file_path) is not None:
-        df = pd.read_csv(input_sv_file_path, sep='\t')
-    else:
+    df = read_sv_file(input_sv_file_path)
+    
+    if df is None:
         print('The given file format is not supported, only CSV or TSV')
         sys.exit()
         
+    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
+    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
+
+    def get_endpoints(group):
+        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
+
+    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
+
+    result.columns = ['causality_actor_process_image_path', 'endpoints']
+
+    result.to_csv(output_csv_path, index=False)
+
+def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> None:
+    """
+    Processes a directory of CSV or TSV files to generate a new CSV with unique paths and associated endpoints.
+
+    This function reads an input directory, filters and groups data of its logs by the unique 
+    paths found in the 'causality_actor_process_image_path' column, and creates a set of 
+    associated endpoints from the 'action_remote_ip' and 'dst_action_external_hostname' columns. 
+    endpoints with null or blank values are excluded. The result is saved to a new CSV file.
+
+    Parameters:
+    - input_sv_directory_path (str): The file path to the input directory of logs.
+    - output_csv_path (str): The file path where the output CSV file will be saved.
+    
+    Returns:
+    - None: The function writes the results directly to the specified output CSV file.
+    
+    Output CSV Structure:
+    - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
+    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns associated with each path.
+    """
+    absolute_path = os.path.expanduser(input_sv_directory_path)
+
+    if not os.path.isdir(absolute_path):
+        print("The given directory doesn't exist")
+        sys.exit()
+
+    df = None
+
+    directory = os.scandir(absolute_path)
+    for entry in directory :
+        if entry.is_file() and df is None:
+            df = read_sv_file(absolute_path + entry.name)
+        elif entry.is_file() and df is not None:
+            df_to_concat = read_sv_file(absolute_path + entry.name)
+            
+            if df_to_concat is not None:
+                df = pd.concat([df, df_to_concat])
+
+    if df is None:
+        print("There is no CSV or TSV file inside the given directory")
+        sys.exit()
+
     df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
     df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 
