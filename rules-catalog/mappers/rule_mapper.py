@@ -26,18 +26,21 @@ def map_network_access_log_to_rule(network_access_log):
     
     try:
         endpoints = ast.literal_eval(network_access_log['endpoints'])
+        domains = ast.literal_eval(network_access_log['domains'])
         if not isinstance(endpoints, list):
             raise ValueError("Endpoints must be a list.")
+        elif not isinstance(domains, list):
+            raise ValueError("Domains must be a list.")
     except (ValueError, SyntaxError) as e:
         logging.error(f"Failed to parse endpoints: {e}")
         return None
-    
+
     value = {
         'key': key,
         'action': 'allow',
         'path': key,
         'endpoints': endpoints,  
-        'direction': 'outgoing'
+        'domains': domains
     }
 
     rule[key] = {
@@ -47,6 +50,7 @@ def map_network_access_log_to_rule(network_access_log):
     if not validate_rule(value):
         logging.error("Invalid rule generated. Please check the required fields.")
         return None
+    
     return rule
 
 
@@ -81,7 +85,7 @@ def validate_rule(rule):
     """
     Validates a generated rule dictionary by checking for required fields.
     
-    Ensures the presence of the following fields: 'key', 'action', 'path', 'endpoints', and 'direction'.
+    Ensures the presence of the following fields: 'key', 'action', 'path', 'endpoints', and 'domains'.
     Additionally, checks that there are no extra fields apart from optional 'csInfo'.
     
     Args:
@@ -91,7 +95,7 @@ def validate_rule(rule):
         bool: True if the rule contains all required fields and no extra fields, 
               False otherwise.
     """
-    required_fields = ['key', 'action', 'path', 'endpoints', 'direction']
+    required_fields = ['key', 'action', 'path', 'endpoints', 'domains']
     
     if not all(field in rule for field in required_fields):
         return False
