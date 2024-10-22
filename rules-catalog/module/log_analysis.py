@@ -53,6 +53,40 @@ def merge_dataframes(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     return merged_df
 
 
+def is_ip(address: str):
+    """
+    Given an Address, verifies if it is an IP or not.
+
+    Args:
+        - address (str): The address to be verified.
+
+    Returns:
+        - bool: True if the address is an IP (IPv4 or IPv6) or else False.
+    """
+
+    try:
+        ipaddress.ip_address(address)
+        return True
+    except ValueError:
+        return False
+
+
+def get_domain_ip(ip: str) -> str:
+    """
+    Extract the URL of a given IP.
+
+    Args:
+        - ip (str): IP that will have an URL extracted from.
+        
+    Returns:
+        - str: Extracted URL.
+    """
+    try:
+        return socket.gethostbyaddr(ip)[0]
+    except (socket.gaierror, socket.herror):
+        return "URL could not be retrieved"
+
+
 def extract_main_domain(hostname: str) -> str:
     """
     Extract the main domain from a given hostname.
@@ -400,6 +434,36 @@ def combination_host_and_path(df: pd.DataFrame) -> pd.DataFrame:
     unique_df = df.drop_duplicates(subset=['causality_actor_process_image_path', 'registered_domain'])
     
     return unique_df
+
+
+def get_domains(endpoints: list[str], ip_urls_dict: dict) -> list[str]:
+    """
+    Given a list of endpoints, converts them to unique domains and returns a list of these domains.
+
+    Args:
+    - endpoints (list[str]): A list of endpoints.
+    - ip_urls_dict (dict): A dictionary that maps an IP to its respective URL.
+
+    Returns:
+    - list[str]: A list of unique domains extracted from the endpoins given.
+    """
+    domains_set = set()
+    
+    for entry in endpoints:
+        if is_ip(entry):
+            if entry in ip_urls_dict:
+                respective_url = ip_urls_dict[entry]
+            else:
+                respective_url = get_domain_ip(entry)
+                ip_urls_dict[entry] = respective_url
+            
+            if respective_url != "URL could not be retrieved" and respective_url != "_gateway":
+                domains_set.add(extract_main_domain(respective_url))
+        else:
+            domains_set.add(extract_main_domain(entry))
+
+    return list(domains_set)
+
 
 def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
     """
