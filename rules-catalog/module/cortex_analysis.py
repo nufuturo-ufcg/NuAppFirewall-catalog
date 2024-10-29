@@ -582,4 +582,8 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
 
     result.columns = ['causality_actor_process_image_path', 'endpoints']
 
+    ip_urls_dict = {}
+    
+    result['domains'] = result['endpoints'].apply(lambda endpoints: get_domains(endpoints, ip_urls_dict))
+    
     result.to_csv(output_csv_path, index=False)
