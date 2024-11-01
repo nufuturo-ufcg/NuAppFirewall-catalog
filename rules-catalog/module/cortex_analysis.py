@@ -481,7 +481,45 @@ def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
     elif re.match(r'^.*\.tsv$', input_sv_file_path) is not None:
         return pd.read_csv(input_sv_file_path, sep='\t')
     else:
-        return None
+        return None   
+
+
+def cortex_df_to_intermediate_csv(cortex_df: pd.DataFrame, output_csv_path: str):
+    """
+    Convert a dataframe produced from cortex logs to an intermediate CSV on rules-catalog/data/
+
+    This intermediate csv and its file path will be both be created at runtime if it wasn't
+    created in a previous execution, and then a processed dataframe will be converted to this
+    CSV.
+
+    Args:
+    - cortex_df (pd.Dataframe): Dataframe created from cortex logs.
+    - output_csv_path (str): The file path where the output CSV file will be saved.
+
+    Returns:
+    - None: The function writes the results directly to the specified output CSV file.
+    
+    Output CSV Structure:
+    - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
+    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns associated with each path.
+    """
+    
+    df_filtered = cortex_df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
+    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
+
+    def get_endpoints(group):
+        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
+
+    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
+
+    result.columns = ['causality_actor_process_image_path', 'endpoints']
+
+    ip_urls_dict = {}
+
+    result['domains'] = result['endpoints'].apply(lambda endpoints: get_domains(endpoints, ip_urls_dict))
+
+    result.to_csv(output_csv_path, index=False)
 
 
 def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
@@ -511,22 +549,8 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     if df is None:
         print('The given file format is not supported, only CSV or TSV')
         sys.exit()
-        
-    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
-    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 
-    def get_endpoints(group):
-        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
-
-    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
-
-    result.columns = ['causality_actor_process_image_path', 'endpoints']
-
-    ip_urls_dict = {}
-
-    result['domains'] = result['endpoints'].apply(lambda endpoints: get_domains(endpoints, ip_urls_dict))
-
-    result.to_csv(output_csv_path, index=False)
+    cortex_df_to_intermediate_csv(df, output_csv_path)
 
 
 def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> None:
@@ -572,18 +596,4 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
         print("There is no CSV or TSV file inside the given directory")
         sys.exit()
 
-    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
-    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
-
-    def get_endpoints(group):
-        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
-
-    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
-
-    result.columns = ['causality_actor_process_image_path', 'endpoints']
-
-    ip_urls_dict = {}
-    
-    result['domains'] = result['endpoints'].apply(lambda endpoints: get_domains(endpoints, ip_urls_dict))
-    
-    result.to_csv(output_csv_path, index=False)
+    cortex_df_to_intermediate_csv(df, output_csv_path)
