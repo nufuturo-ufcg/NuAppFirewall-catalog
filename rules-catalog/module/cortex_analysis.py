@@ -501,24 +501,38 @@ def cortex_df_to_intermediate_csv(cortex_df: pd.DataFrame, output_csv_path: str)
     
     Output CSV Structure:
     - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
-    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
-      'dst_action_external_hostname' columns associated with each path.
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
     """
     
-    df_filtered = cortex_df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
+    df_filtered = cortex_df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
     df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 
-    def get_endpoints(group):
-        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
+    def get_destinations(group):
+        destinations = set()
+        for _, row in group.iterrows():
+            port = row['action_remote_port']
+            if pd.isna(port):
+                port = "any"
 
-    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
+            if pd.notna(row['action_remote_ip']):
+                destinations.add((row['action_remote_ip'], port))
+            if pd.notna(row['dst_action_external_hostname']):
+                destinations.add((row['dst_action_external_hostname'], port))
 
-    result.columns = ['causality_actor_process_image_path', 'endpoints']
+        return list(destinations)
+    
+    #def get_endpoints(group):
+    #    return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
 
-    ip_urls_dict = {}
+    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_destinations).reset_index()
 
-    result['domains'] = result['endpoints'].apply(lambda endpoints: get_domains(endpoints, ip_urls_dict))
+    result.columns = ['causality_actor_process_image_path', 'destinations']
 
+    #ip_urls_dict = {}
+
+    #result['domains'] = result['endpoints'].apply(lambda endpoints: get_domains(endpoints, ip_urls_dict))
+    
     result.to_csv(output_csv_path, index=False)
 
 
@@ -528,8 +542,9 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
 
     This function reads an input CSV or TSV file, filters and groups data by the unique paths found 
     in the 'causality_actor_process_image_path' column, and creates a set of associated 
-    endpoints from the 'action_remote_ip' and 'dst_action_external_hostname' columns. 
-    endpoints with null or blank values are excluded. The result is saved to a new CSV file.
+    destinations from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns, 
+    'action_remote_ip' and 'dst_action_external_hostname' with null or blank values are excluded. 
+    The result is saved to a new CSV file.
 
     Parameters:
     - input_sv_file_path (str): The file path to the input CSV or TSV file.
@@ -540,8 +555,8 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     
     Output CSV Structure:
     - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
-    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
-      'dst_action_external_hostname' columns associated with each path.
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
     """
     
     df = read_sv_file(input_sv_file_path)
@@ -555,12 +570,13 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
 
 def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> None:
     """
-    Processes a directory of CSV or TSV files to generate a new CSV with unique paths and associated endpoints.
+    Processes a directory of CSV or TSV files to generate a new CSV with unique paths and associated destinations.
 
     This function reads an input directory, filters and groups data of its logs by the unique 
-    paths found in the 'causality_actor_process_image_path' column, and creates a set of 
-    associated endpoints from the 'action_remote_ip' and 'dst_action_external_hostname' columns. 
-    endpoints with null or blank values are excluded. The result is saved to a new CSV file.
+    paths found in the 'causality_actor_process_image_path' column, and creates a set of associated 
+    destinations from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns, 
+    'action_remote_ip' and 'dst_action_external_hostname' with null or blank values are excluded. 
+    The result is saved to a new CSV file.
 
     Parameters:
     - input_sv_directory_path (str): The file path to the input directory of logs.
@@ -571,8 +587,8 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
     
     Output CSV Structure:
     - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
-    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
-      'dst_action_external_hostname' columns associated with each path.
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
     """
     absolute_path = os.path.expanduser(input_sv_directory_path)
 
