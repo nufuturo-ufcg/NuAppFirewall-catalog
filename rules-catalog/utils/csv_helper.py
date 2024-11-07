@@ -11,7 +11,7 @@ def write_to_csv(logs_dict, output_file_path):
     Args:
     data (list): A list of dictionaries containing the log data.
     """
-    fieldnames = ['causality_actor_process_image_path', 'endpoints']
+    fieldnames = ['causality_actor_process_image_path', 'destinations']
     with open(output_file_path, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
