@@ -516,9 +516,9 @@ def cortex_df_to_intermediate_csv(cortex_df: pd.DataFrame, output_csv_path: str)
                 port = "any"
 
             if pd.notna(row['action_remote_ip']):
-                destinations.add((row['action_remote_ip'], port))
+                destinations.add((row['action_remote_ip'], str(int(port))))
             if pd.notna(row['dst_action_external_hostname']):
-                destinations.add((row['dst_action_external_hostname'], port))
+                destinations.add((row['dst_action_external_hostname'], str(int(port))))
 
         return list(destinations)
     
