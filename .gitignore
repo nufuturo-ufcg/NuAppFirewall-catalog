@@ -5,3 +5,4 @@ rules-catalog/test/__pycache__/
 rules-catalog/utils/__pycache__/
 rules-catalog/config/__pycache__/
 rules-catalog/module/__pycache__/
+.DS_Store
