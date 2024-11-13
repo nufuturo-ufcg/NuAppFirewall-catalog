@@ -4,7 +4,7 @@ from utils.plist_helper import write_plist
 from config import consts
 import plistlib
 
-def create_rules_dict(network_access_logs_dict):
+def create_rules_dict(network_access_logs_dict, allow_switch):
     """
     Maps dictionary of network access logs to dictionary of rules. (See /rules-catalog/README.md to understand details.)
     If existing key already exists, list is appended, otherwise a new entry is created. 
@@ -17,7 +17,7 @@ def create_rules_dict(network_access_logs_dict):
     """        
     rules_dict = {}
     for log_dict in network_access_logs_dict:
-        rule_dict = map_network_access_log_to_rule(log_dict)
+        rule_dict = map_network_access_log_to_rule(log_dict, allow_switch)
         if rule_dict is not None:
             for key, value in rule_dict.items():
                 if key in rules_dict:
