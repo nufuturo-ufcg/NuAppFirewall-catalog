@@ -5,6 +5,7 @@ import pandas as pd
 import tldextract as tld
 import ipaddress
 import socket
+import numpy as np
 
 def find_hostnames(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -484,7 +485,7 @@ def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
         return None   
 
 
-def cortex_df_to_intermediate_csv(cortex_df: pd.DataFrame, output_csv_path: str):
+def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: str):
     """
     Convert a dataframe produced from cortex logs to an intermediate CSV on rules-catalog/data/
 
@@ -493,7 +494,8 @@ def cortex_df_to_intermediate_csv(cortex_df: pd.DataFrame, output_csv_path: str)
     CSV.
 
     Args:
-    - cortex_df (pd.Dataframe): Dataframe created from cortex logs.
+    - filtered_df (pd.Dataframe): Dataframe created from cortex logs with only the following columns:
+      'causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port' and 'dst_action_external_hostname'.
     - output_csv_path (str): The file path where the output CSV file will be saved.
 
     Returns:
@@ -504,10 +506,6 @@ def cortex_df_to_intermediate_csv(cortex_df: pd.DataFrame, output_csv_path: str)
     - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
       'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
     """
-    
-    df_filtered = cortex_df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
-    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
-
     def get_destinations(group):
         destinations = set()
         for _, row in group.iterrows():
@@ -516,23 +514,16 @@ def cortex_df_to_intermediate_csv(cortex_df: pd.DataFrame, output_csv_path: str)
                 port = "any"
 
             if pd.notna(row['action_remote_ip']):
-                destinations.add((row['action_remote_ip'], str(int(port))))
+                destinations.add((row['action_remote_ip'], str(port)))
             if pd.notna(row['dst_action_external_hostname']):
-                destinations.add((row['dst_action_external_hostname'], str(int(port))))
+                destinations.add((row['dst_action_external_hostname'], str(port)))
 
         return list(destinations)
     
-    #def get_endpoints(group):
-    #    return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
-
-    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_destinations).reset_index()
+    result = filtered_df.groupby('causality_actor_process_image_path').apply(get_destinations).reset_index()
 
     result.columns = ['causality_actor_process_image_path', 'destinations']
 
-    #ip_urls_dict = {}
-
-    #result['domains'] = result['endpoints'].apply(lambda endpoints: get_domains(endpoints, ip_urls_dict))
-    
     result.to_csv(output_csv_path, index=False)
 
 
@@ -565,7 +556,10 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
         print('The given file format is not supported, only CSV or TSV')
         sys.exit()
 
-    cortex_df_to_intermediate_csv(df, output_csv_path)
+    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
+    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
+
+    filtered_df_to_intermediate_csv(df_filtered, output_csv_path)
 
 
 def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> None:
@@ -612,4 +606,7 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
         print("There is no CSV or TSV file inside the given directory")
         sys.exit()
 
-    cortex_df_to_intermediate_csv(df, output_csv_path)
+    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
+    df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
+
+    filtered_df_to_intermediate_csv(df_filtered, output_csv_path)
