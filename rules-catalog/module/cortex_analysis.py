@@ -485,7 +485,7 @@ def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
         return None   
 
 
-def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: str):
+def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: str) -> None:
     """
     Convert a dataframe produced from cortex logs to an intermediate CSV on rules-catalog/data/
 
@@ -527,9 +527,50 @@ def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: 
     result.to_csv(output_csv_path, index=False)
 
 
+def process_block_file(input_block_file_path: str, output_csv_path: str) -> None:
+    """
+    Processes a TXT file that has an app to be blocked per line to generate a new CSV with unique
+    subpaths and associated destinations.
+
+    This function reads an input TXT file and for each line creates a line on a dataframe with the 
+    respective columns: 'causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port' 
+    and 'dst_action_external_hostname', after that it sends this dataframe to an auxiliary function to
+    write this dataframe to a new CSV file.
+
+    Parameters:
+    - input_bloc_file_path (str): The file path to the input TXT file.
+    - output_csv_path (str): The file path where the output CSV file will be saved.
+    
+    Returns:
+    - None: The function writes the results directly to the specified output CSV file.
+    
+    Output CSV Structure:
+    - causality_actor_process_image_path (str): The unique process image paths based on each line of
+      the TXT file with the following structure, "/Applications/{app_name}".
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    """
+
+    absolute_path = os.path.expanduser(input_block_file_path)
+
+    with open(absolute_path, "r") as file:
+        app_names = [line.strip() for line in file]
+
+    data = {
+        'causality_actor_process_image_path': [f"/Applications/{app}" for app in app_names],
+        'action_remote_ip': [np.nan] * len(app_names),
+        'action_remote_port': ['any'] * len(app_names),
+        'dst_action_external_hostname': ['any'] * len(app_names)
+    }
+
+    df = pd.DataFrame(data)
+
+    filtered_df_to_intermediate_csv(df, output_csv_path)
+
+
 def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     """
-    Processes a CSV or TSV file to generate a new CSV with unique paths and associated endpoints.
+    Processes a CSV or TSV file to generate a new CSV with unique paths and associated destinations.
 
     This function reads an input CSV or TSV file, filters and groups data by the unique paths found 
     in the 'causality_actor_process_image_path' column, and creates a set of associated 
