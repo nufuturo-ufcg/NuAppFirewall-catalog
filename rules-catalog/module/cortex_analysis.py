@@ -557,7 +557,7 @@ def process_block_file(input_block_file_path: str, output_csv_path: str) -> None
         app_names = [line.strip() for line in file]
 
     data = {
-        'causality_actor_process_image_path': [f"/Applications/{app}" for app in app_names],
+        'causality_actor_process_image_path': [app for app in app_names],
         'action_remote_ip': [np.nan] * len(app_names),
         'action_remote_port': ['any'] * len(app_names),
         'dst_action_external_hostname': ['any'] * len(app_names)
