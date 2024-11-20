@@ -512,6 +512,8 @@ def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: 
             port = row['action_remote_port']
             if pd.isna(port):
                 port = "any"
+            else:
+                port = int(port)
 
             if pd.notna(row['action_remote_ip']):
                 destinations.add((row['action_remote_ip'], str(port)))
@@ -559,7 +561,7 @@ def process_block_file(input_block_file_path: str, output_csv_path: str) -> None
     data = {
         'causality_actor_process_image_path': [app for app in app_names],
         'action_remote_ip': [np.nan] * len(app_names),
-        'action_remote_port': ['any'] * len(app_names),
+        'action_remote_port': [np.nan] * len(app_names),
         'dst_action_external_hostname': ['any'] * len(app_names)
     }
 
