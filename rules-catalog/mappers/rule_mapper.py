@@ -1,7 +1,7 @@
 import logging
 import ast  
 
-def map_network_access_log_to_rule(network_access_log, allow_switch) :
+def map_network_access_log_to_rule(network_access_log, is_allow) :
     """
     Maps a network access log entry to a rule dictionary.
     
@@ -11,7 +11,7 @@ def map_network_access_log_to_rule(network_access_log, allow_switch) :
 
     Args:
         network_access_log (dict): A dictionary representing a single network access log.
-        allow_switch (bool): A boolean value that will define if the rules created's nature
+        is_allow (bool): A boolean value that will define if the rules created's nature
           are that of allow or block.
 
     Returns:
@@ -35,7 +35,7 @@ def map_network_access_log_to_rule(network_access_log, allow_switch) :
         return None
 
     value = {
-        'action': 'allow' if allow_switch else 'block',
+        'action': 'allow' if is_allow else 'block',
         'destinations': destinations
     }
 

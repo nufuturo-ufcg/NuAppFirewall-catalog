@@ -65,21 +65,21 @@ def create_data_directory():
         os.makedirs(data_dir)
 
 
-def create_final_rules_dict(network_access_logs_csv_output_path:str, allow_switch:bool):
+def create_final_rules_dict(network_access_logs_csv_output_path:str, is_allow:bool):
     """
     Given a path to an intermediate CSV that follows closely the rule format and a
     boolean value to determine if it's going to be a block or allow rule dictionary.
 
     Args:
         network_access_logs_csv_output_path (str): The path to the intermediate rules' csv.
-        allow_switch (bool): Boolean that determines whether the produced rules will be that of block or allow.
+        is_allow (bool): Boolean that determines whether the produced rules will be that of block or allow.
 
     Returns:
         dict: Dictionary of rules.
     """
     
     network_access_logs_dict = read_csv(network_access_logs_csv_output_path)
-    rules_dict = create_rules_dict(network_access_logs_dict, allow_switch)
+    rules_dict = create_rules_dict(network_access_logs_dict, is_allow)
 
     return rules_dict
 
