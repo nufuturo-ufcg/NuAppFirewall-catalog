@@ -5,6 +5,7 @@ import pandas as pd
 import tldextract as tld
 import ipaddress
 import socket
+import numpy as np
 
 def find_hostnames(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -51,6 +52,40 @@ def merge_dataframes(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     merged_df.drop(['Hostname', 'IP'], axis=1, inplace=True)
 
     return merged_df
+
+
+def is_ip(address: str):
+    """
+    Given an Address, verifies if it is an IP or not.
+
+    Args:
+        - address (str): The address to be verified.
+
+    Returns:
+        - bool: True if the address is an IP (IPv4 or IPv6) or else False.
+    """
+
+    try:
+        ipaddress.ip_address(address)
+        return True
+    except ValueError:
+        return False
+
+
+def get_domain_ip(ip: str) -> str:
+    """
+    Extract the URL of a given IP.
+
+    Args:
+        - ip (str): IP that will have an URL extracted from.
+        
+    Returns:
+        - str: Extracted URL.
+    """
+    try:
+        return socket.gethostbyaddr(ip)[0]
+    except (socket.gaierror, socket.herror):
+        return "URL could not be retrieved"
 
 
 def extract_main_domain(hostname: str) -> str:
@@ -401,6 +436,36 @@ def combination_host_and_path(df: pd.DataFrame) -> pd.DataFrame:
     
     return unique_df
 
+
+def get_domains(endpoints: list[str], ip_urls_dict: dict) -> list[str]:
+    """
+    Given a list of endpoints, converts them to unique domains and returns a list of these domains.
+
+    Args:
+    - endpoints (list[str]): A list of endpoints.
+    - ip_urls_dict (dict): A dictionary that maps an IP to its respective URL.
+
+    Returns:
+    - list[str]: A list of unique domains extracted from the endpoins given.
+    """
+    domains_set = set()
+    
+    for entry in endpoints:
+        if is_ip(entry):
+            if entry in ip_urls_dict:
+                respective_url = ip_urls_dict[entry]
+            else:
+                respective_url = get_domain_ip(entry)
+                ip_urls_dict[entry] = respective_url
+            
+            if respective_url != "URL could not be retrieved" and respective_url != "_gateway":
+                domains_set.add(extract_main_domain(respective_url))
+        else:
+            domains_set.add(extract_main_domain(entry))
+
+    return list(domains_set)
+
+
 def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
     """
     Process a CSV or TSV file to generate a corresponding Pandas DataFrame.
@@ -417,16 +482,103 @@ def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
     elif re.match(r'^.*\.tsv$', input_sv_file_path) is not None:
         return pd.read_csv(input_sv_file_path, sep='\t')
     else:
-        return None
+        return None   
+
+
+def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: str) -> None:
+    """
+    Convert a dataframe produced from EDR logs to an intermediate CSV on rules-catalog/data/
+
+    This intermediate csv and its file path will be both be created at runtime if it wasn't
+    created in a previous execution, and then a processed dataframe will be converted to this
+    CSV.
+
+    Args:
+    - filtered_df (pd.Dataframe): Dataframe created from EDR logs with only the following columns:
+      'causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port' and 'dst_action_external_hostname'.
+    - output_csv_path (str): The file path where the output CSV file will be saved.
+
+    Returns:
+    - None: The function writes the results directly to the specified output CSV file.
+    
+    Output CSV Structure:
+    - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    """
+    def get_destinations(group):
+        destinations = set()
+        for _, row in group.iterrows():
+            port = row['action_remote_port']
+            if pd.isna(port):
+                port = "any"
+            else:
+                port = int(port)
+
+            if pd.notna(row['action_remote_ip']):
+                destinations.add((row['action_remote_ip'], str(port)))
+            if pd.notna(row['dst_action_external_hostname']):
+                destinations.add((row['dst_action_external_hostname'], str(port)))
+
+        return list(destinations)
+    
+    result = filtered_df.groupby('causality_actor_process_image_path').apply(get_destinations).reset_index()
+
+    result.columns = ['causality_actor_process_image_path', 'destinations']
+
+    result.to_csv(output_csv_path, index=False)
+
+
+def process_block_file(input_block_file_path: str, output_csv_path: str) -> None:
+    """
+    Processes a TXT file that has an app to be blocked per line to generate a new CSV with unique
+    subpaths and associated destinations.
+
+    This function reads an input TXT file and for each line creates a line on a dataframe with the 
+    respective columns: 'causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port' 
+    and 'dst_action_external_hostname', after that it sends this dataframe to an auxiliary function to
+    write this dataframe to a new CSV file.
+
+    Parameters:
+    - input_bloc_file_path (str): The file path to the input TXT file.
+    - output_csv_path (str): The file path where the output CSV file will be saved.
+    
+    Returns:
+    - None: The function writes the results directly to the specified output CSV file.
+    
+    Output CSV Structure:
+    - causality_actor_process_image_path (str): The unique process image paths based on each line of
+      the TXT file with the following structure, "/Applications/{app_name}".
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    """
+
+    absolute_path = os.path.expanduser(input_block_file_path)
+
+    with open(absolute_path, "r") as file:
+        app_names = [line.strip() for line in file]
+
+    data = {
+        'causality_actor_process_image_path': [app for app in app_names],
+        'action_remote_ip': [np.nan] * len(app_names),
+        'action_remote_port': [np.nan] * len(app_names),
+        'dst_action_external_hostname': ['any'] * len(app_names)
+    }
+
+    df = pd.DataFrame(data)
+
+    filtered_df_to_intermediate_csv(df, output_csv_path)
+
 
 def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     """
-    Processes a CSV or TSV file to generate a new CSV with unique paths and associated endpoints.
+    Processes a CSV or TSV file to generate a new CSV with unique paths and associated destinations.
 
     This function reads an input CSV or TSV file, filters and groups data by the unique paths found 
     in the 'causality_actor_process_image_path' column, and creates a set of associated 
-    endpoints from the 'action_remote_ip' and 'dst_action_external_hostname' columns. 
-    endpoints with null or blank values are excluded. The result is saved to a new CSV file.
+    destinations from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns, 
+    'action_remote_ip' and 'dst_action_external_hostname' with null or blank values are excluded. 
+    The result is saved to a new CSV file.
 
     Parameters:
     - input_sv_file_path (str): The file path to the input CSV or TSV file.
@@ -437,8 +589,8 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     
     Output CSV Structure:
     - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
-    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
-      'dst_action_external_hostname' columns associated with each path.
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
     """
     
     df = read_sv_file(input_sv_file_path)
@@ -446,27 +598,22 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     if df is None:
         print('The given file format is not supported, only CSV or TSV')
         sys.exit()
-        
-    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
+
+    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
     df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 
-    def get_endpoints(group):
-        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
+    filtered_df_to_intermediate_csv(df_filtered, output_csv_path)
 
-    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
-
-    result.columns = ['causality_actor_process_image_path', 'endpoints']
-
-    result.to_csv(output_csv_path, index=False)
 
 def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> None:
     """
-    Processes a directory of CSV or TSV files to generate a new CSV with unique paths and associated endpoints.
+    Processes a directory of CSV or TSV files to generate a new CSV with unique paths and associated destinations.
 
     This function reads an input directory, filters and groups data of its logs by the unique 
-    paths found in the 'causality_actor_process_image_path' column, and creates a set of 
-    associated endpoints from the 'action_remote_ip' and 'dst_action_external_hostname' columns. 
-    endpoints with null or blank values are excluded. The result is saved to a new CSV file.
+    paths found in the 'causality_actor_process_image_path' column, and creates a set of associated 
+    destinations from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns, 
+    'action_remote_ip' and 'dst_action_external_hostname' with null or blank values are excluded. 
+    The result is saved to a new CSV file.
 
     Parameters:
     - input_sv_directory_path (str): The file path to the input directory of logs.
@@ -477,8 +624,8 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
     
     Output CSV Structure:
     - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
-    - endpoints (set): A set of unique values from the 'action_remote_ip' and 
-      'dst_action_external_hostname' columns associated with each path.
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
     """
     absolute_path = os.path.expanduser(input_sv_directory_path)
 
@@ -502,14 +649,7 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
         print("There is no CSV or TSV file inside the given directory")
         sys.exit()
 
-    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'dst_action_external_hostname']]
+    df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
     df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 
-    def get_endpoints(group):
-        return list(set(group['action_remote_ip'].dropna().tolist() + group['dst_action_external_hostname'].dropna().tolist()))
-
-    result = df_filtered.groupby('causality_actor_process_image_path').apply(get_endpoints).reset_index()
-
-    result.columns = ['causality_actor_process_image_path', 'endpoints']
-
-    result.to_csv(output_csv_path, index=False)
+    filtered_df_to_intermediate_csv(df_filtered, output_csv_path)

@@ -1,7 +1,7 @@
 import logging
 import ast  
 
-def map_network_access_log_to_rule(network_access_log):
+def map_network_access_log_to_rule(network_access_log, is_allow) :
     """
     Maps a network access log entry to a rule dictionary.
     
@@ -11,6 +11,8 @@ def map_network_access_log_to_rule(network_access_log):
 
     Args:
         network_access_log (dict): A dictionary representing a single network access log.
+        is_allow (bool): A boolean value that will define if the rules created's nature
+          are that of allow or block.
 
     Returns:
         dict or None: A dictionary containing the generated rule if the log is valid, 
@@ -25,19 +27,16 @@ def map_network_access_log_to_rule(network_access_log):
     key = network_access_log['causality_actor_process_image_path']
     
     try:
-        endpoints = ast.literal_eval(network_access_log['endpoints'])
-        if not isinstance(endpoints, list):
+        destinations = ast.literal_eval(network_access_log['destinations'])
+        if not isinstance(destinations, list):
             raise ValueError("Endpoints must be a list.")
     except (ValueError, SyntaxError) as e:
         logging.error(f"Failed to parse endpoints: {e}")
         return None
-    
+
     value = {
-        'key': key,
-        'action': 'allow',
-        'path': key,
-        'endpoints': endpoints,  
-        'direction': 'outgoing'
+        'action': 'allow' if is_allow else 'block',
+        'destinations': destinations
     }
 
     rule[key] = {
@@ -47,6 +46,7 @@ def map_network_access_log_to_rule(network_access_log):
     if not validate_rule(value):
         logging.error("Invalid rule generated. Please check the required fields.")
         return None
+    
     return rule
 
 
@@ -56,7 +56,7 @@ def validate_network_access_log(row):
     
     The required fields are 'causality_actor_process_image_path' and 'endpoints'.
     The validation ensures that 'causality_actor_process_image_path' is a string
-    and 'endpoints' is a string (later parsed as a list).
+    and 'destinations' is a string (later parsed as a list).
 
     Args:
         row (dict): A dictionary representing a single network access log entry.
@@ -67,7 +67,7 @@ def validate_network_access_log(row):
     """
     required_fields = {
         'causality_actor_process_image_path': lambda x: isinstance(x, str) and bool(x.split('/')[-1]),
-        'endpoints': lambda x: isinstance(x, str)  # Endpoints will be validated after conversion
+        'destinations': lambda x: isinstance(x, str)  # Destinations will be validated after conversion
     }
 
     for field, validator in required_fields.items():
@@ -81,7 +81,7 @@ def validate_rule(rule):
     """
     Validates a generated rule dictionary by checking for required fields.
     
-    Ensures the presence of the following fields: 'key', 'action', 'path', 'endpoints', and 'direction'.
+    Ensures the presence of the following fields: 'action', and 'destinations'.
     Additionally, checks that there are no extra fields apart from optional 'csInfo'.
     
     Args:
@@ -91,7 +91,7 @@ def validate_rule(rule):
         bool: True if the rule contains all required fields and no extra fields, 
               False otherwise.
     """
-    required_fields = ['key', 'action', 'path', 'endpoints', 'direction']
+    required_fields = ['action', 'destinations']
     
     if not all(field in rule for field in required_fields):
         return False
