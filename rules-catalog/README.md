@@ -10,9 +10,7 @@ This document describes the mapping between properties of NuAppFirewall and Cort
 |-------------------------|---------------------------------------------|-----------|
 | **key**                 | causality_actor_process_image_path                           | Yes       |
 | **action**              | (NM) 'allow', 'block', or 'nolog' (defined according to rules) | Yes       |
-| **path**         | causality_actor_process_image_path | Yes       |
-| **endpoints**           | action_remote_ip and dst_action_external_hostname | Yes       |
-| **direction**           | (NM) 'outgoing' or 'ingoing' (defined according to rules)                    | Yes       |
+| **destinations**           | action_remote_ip and action_remote_port or dst_action_external_hostname and action_remote_port | Yes       |
 
 ### Property Descriptions
 
@@ -24,16 +22,6 @@ This document describes the mapping between properties of NuAppFirewall and Cort
    - **Description**: Defines the action that the rule will enforce, which can be 'allow', 'block', or 'nolog'.
    - **Usage**: Specifies the enforcement behavior of the rule on the network traffic.
 
-3. **path**
-   - **Description**: Indicates the location or path of the application or process image that the rule is associated with.
-   - **Usage**: Used to pinpoint the exact location of the application or process being regulated by the rule.
-
-4. **endpoints**
-   - **Description**: Lists the network endpoints involved, including IP addresses and hostnames.
-   - **Usage**: Defines the specific network locations that the rule applies to, such as remote IPs or external hostnames involved in the network traffic.
-
-5. **direction**
-   - **Description**: Specifies the direction of the traffic flow that the rule applies to, either 'outgoing' or 'ingoing'.
-   - **Usage**: Determines whether the rule applies to outbound (outgoing) or inbound (ingoing) network traffic.
-
-
+3. **destinations**
+   - **Description**: Lists the network pairs of IP addresses or hostnames and ports involved.
+   - **Usage**: Specifies the exact destinations for the network traffic, including both the target IP addresses or hostnames and their associated ports. These define where the traffic is intended to be delivered or received within the network.
