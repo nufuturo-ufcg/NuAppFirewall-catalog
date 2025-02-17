@@ -12,3 +12,4 @@ def write_json(dictionary, output_file):
     """
     with open(output_file, 'w') as file:
         json.dump(dictionary, file, indent=4)
+    print(f"Data successfully written to {output_file}.")
