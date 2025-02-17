@@ -26,19 +26,18 @@ def create_rules_dict(network_access_logs_dict, is_allow):
                     rules_dict[key] = value[key]
     return rules_dict
 
-def save_rules_file(rules_dict, output_format, plist_format):
+def save_rules_file(rules_dict, output_path, output_format):
     """
-    Write output data to file in {output_format}.
+    Write output data to file in {output_path}.
 
     Args:
         rules_dict (dict): Dictionary containing rules.
-        output_format (str): Output format ('json' or 'plist').
+        output_path (str): String referring as destination path.
+        output_format (str): The output format. Defaults to 'json'. Can be 'xml' for XML plist or 'bin' for binary plist.
     """
-    if output_format == 'plist':
-        output_plist_format = plistlib.FMT_XML
-        if plist_format == 'bin':
-            output_plist_format = plistlib.FMT_BINARY
-        write_plist(rules_dict, consts.RULES_FILE_PATH + consts.EXTENSION_PLIST, output_plist_format)
+    if output_format == 'xml':
+        write_plist(rules_dict, output_path + consts.EXTENSION_PLIST, plistlib.FMT_XML)
+    elif output_format == 'bin':
+        write_plist(rules_dict, output_path + consts.EXTENSION_PLIST, plistlib.FMT_BINARY)
     else:
-        write_json(rules_dict, consts.RULES_FILE_PATH + consts.EXTENSION_JSON)
-
+        write_json(rules_dict, output_path + consts.EXTENSION_JSON) 

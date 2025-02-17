@@ -29,13 +29,14 @@ def map_network_access_log_to_rule(network_access_log, is_allow) :
     try:
         destinations = ast.literal_eval(network_access_log['destinations'])
         if not isinstance(destinations, list):
-            raise ValueError("Endpoints must be a list.")
+            raise ValueError("Destinations must be a list.")
     except (ValueError, SyntaxError) as e:
         logging.error(f"Failed to parse endpoints: {e}")
         return None
 
     value = {
         'action': 'allow' if is_allow else 'block',
+        'identifier': network_access_log['identifier'],
         'destinations': destinations
     }
 
@@ -67,7 +68,8 @@ def validate_network_access_log(row):
     """
     required_fields = {
         'causality_actor_process_image_path': lambda x: isinstance(x, str) and bool(x.split('/')[-1]),
-        'destinations': lambda x: isinstance(x, str)  # Destinations will be validated after conversion
+        'destinations': lambda x: isinstance(x, str),  # Destinations will be validated after conversion
+        'identifier': lambda x: isinstance(x, str)
     }
 
     for field, validator in required_fields.items():
@@ -91,7 +93,7 @@ def validate_rule(rule):
         bool: True if the rule contains all required fields and no extra fields, 
               False otherwise.
     """
-    required_fields = ['action', 'destinations']
+    required_fields = ['action', 'identifier', 'destinations']
     
     if not all(field in rule for field in required_fields):
         return False
