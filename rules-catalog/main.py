@@ -28,8 +28,14 @@ def parse_arguments():
 
     parser.add_argument('-o', '--output', type=str,
                         help='Provide the path for the output catalog (file name without extension).')
-    parser.add_argument('-f', '--plist-format', metavar='bin', type=str, default='xml',
-                        help='Specify the plist format (default: xml)')
+    parser.add_argument('--simplified', action='store_true',
+                        help='Simplifies destinations to (endpoint, "any") if an endpoint has >99 occurrences for a single app.')
+    
+    output_format_group = parser.add_mutually_exclusive_group()
+    output_format_group.add_argument('--plist', action='store_true',
+                                    help='Output rules in binary plist format.')
+    output_format_group.add_argument('--plist-xml', action='store_true',
+                                    help='Output rules in XML plist format.')
     
     args = parser.parse_args()
 
@@ -40,7 +46,20 @@ def parse_arguments():
         parser.error("-o/--output is required when using one of the following arguments: -i/--input, -r/--recursive, -b/--block.")
 
     if args.block and args.test:
-        parser.error("The --test argument cannot be used with -b/--block.")
+        parser.error("--test argument cannot be used with -b/--block.")
+
+    if args.simplified and args.test:
+        parser.error("--test argument cannot be used with --simplified.")
+
+    if (args.plist or args.plist_xml) and args.test:
+        parser.error("--test argument cannot be used with --plist or --plist-xml.")
+
+    if args.plist:
+        args.format = 'bin'
+    elif args.plist_xml:
+        args.format = 'xml'
+    else:
+        args.format = 'json'
 
     return args
 
@@ -119,6 +138,44 @@ def combine_allow_and_block_rules_dict(allow_rule_dict: dict, block_rule_dict: d
     return combined
 
 
+def remove_conflicting_rules(rules_dict):
+    """
+    Removes conflicting rules from a dictionary of rules. A conflict occurs when:
+      - A rule with a specific identifier has an action of "block".
+      - Another rule with the same identifier has an action of "allow".
+
+    In such cases, the "allow" rule is considered conflicting and is removed from the dictionary.
+
+    Args:
+        rules_dict (dict): A dictionary of rules:
+
+    Returns:
+        dict: The modified dictionary with conflicting "allow" rules removed.
+    """
+    block_identifiers = set()
+    keys_to_remove = []
+
+    for path, rules in list(rules_dict.items()):
+        rule = rules[0]
+        identifier = rule['identifier']
+
+        if identifier != 'unknown' and rule['action'] == 'block':
+            block_identifiers.add(identifier)
+    
+    for path, rules in list(rules_dict.items()):
+        rule = rules[0]
+        identifier = rule["identifier"]
+
+        if identifier in block_identifiers and rule['action'] == 'allow':
+            keys_to_remove.append(path)
+
+    for key in keys_to_remove:
+        if key in rules_dict:
+            del rules_dict[key]
+
+    return rules_dict
+
+
 def main():
     """
     Main function.
@@ -133,51 +190,53 @@ def main():
         consts.NETWORK_BLOCK_APP_NAMES_PATH = args.block
         consts.RULES_FILE_PATH = args.output
 
-        mod.process_block_file(consts.NETWORK_BLOCK_APP_NAMES_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_block_file(consts.NETWORK_BLOCK_APP_NAMES_PATH, args.simplified, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
         block_rules_dict = create_final_rules_dict(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH, False)
 
-        mod.process_sv_file(consts.NETWORK_ACCESS_LOGS_SV_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_sv_file(consts.NETWORK_ACCESS_LOGS_SV_PATH, args.simplified, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
         allow_rules_dict = create_final_rules_dict(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH, True)
 
-        rules_dict = combine_allow_and_block_rules_dict(allow_rules_dict, block_rules_dict)
-        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.plist_format)
+        rules_dict = remove_conflicting_rules(combine_allow_and_block_rules_dict(allow_rules_dict, block_rules_dict))
+        
+        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.format)
     elif args.block and args.recursive:
         consts.NETWORK_ACCESS_LOGS_SV_PATH = args.recursive
         consts.NETWORK_BLOCK_APP_NAMES_PATH = args.block
         consts.RULES_FILE_PATH = args.output
 
-        mod.process_block_file(consts.NETWORK_BLOCK_APP_NAMES_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_block_file(consts.NETWORK_BLOCK_APP_NAMES_PATH, args.simplified, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
         block_rules_dict = create_final_rules_dict(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH, False)
 
-        mod.process_sv_directory(consts.NETWORK_ACCESS_LOGS_SV_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_sv_directory(consts.NETWORK_ACCESS_LOGS_SV_PATH, args.simplified, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
         allow_rules_dict = create_final_rules_dict(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH, True)
 
-        rules_dict = combine_allow_and_block_rules_dict(allow_rules_dict, block_rules_dict)
-        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.plist_format)
+        rules_dict = remove_conflicting_rules(combine_allow_and_block_rules_dict(allow_rules_dict, block_rules_dict))
+
+        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.format)
     elif args.block:
         consts.NETWORK_BLOCK_APP_NAMES_PATH = args.block
         consts.RULES_FILE_PATH = args.output
 
-        mod.process_block_file(consts.NETWORK_BLOCK_APP_NAMES_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_block_file(consts.NETWORK_BLOCK_APP_NAMES_PATH, args.simplified, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
 
         rules_dict = create_final_rules_dict(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH, False)
-        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.plist_format)
+        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.format)
     elif args.input:
         consts.NETWORK_ACCESS_LOGS_SV_PATH = args.input
         consts.RULES_FILE_PATH = args.output
 
-        mod.process_sv_file(consts.NETWORK_ACCESS_LOGS_SV_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_sv_file(consts.NETWORK_ACCESS_LOGS_SV_PATH, args.simplified, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
 
         rules_dict = create_final_rules_dict(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH, True)
-        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.plist_format)
+        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.format)
     elif args.recursive:
         consts.NETWORK_ACCESS_LOGS_SV_PATH = args.recursive
         consts.RULES_FILE_PATH = args.output
 
-        mod.process_sv_directory(consts.NETWORK_ACCESS_LOGS_SV_PATH, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
+        mod.process_sv_directory(consts.NETWORK_ACCESS_LOGS_SV_PATH, args.simplified, consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH)
 
         rules_dict = create_final_rules_dict(consts.NETWORK_ACCESS_LOGS_CSV_OUTPUT_PATH, True)
-        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.plist_format)
+        save_rules_file(rules_dict, consts.RULES_FILE_PATH, args.format)
 
 if __name__ == "__main__":
     main()

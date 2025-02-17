@@ -39,7 +39,7 @@ def write_plist(dictionary, output_file, plist_format):
     """
     try:
         with open(output_file, 'wb') as plist_file:
-            plistlib.dump(dictionary, plist_file,  fmt=plist_format)
+            plistlib.dump(dictionary, plist_file, fmt=plist_format)
         print(f"Data successfully written to {output_file}.")
     except Exception as e:
         print(f"Error writing data to {output_file}: {e}")

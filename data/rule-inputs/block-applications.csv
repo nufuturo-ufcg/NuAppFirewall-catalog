@@ -1,0 +1,78 @@
+app,identifier
+/Messages.app,com.apple.MobileSMS
+/Messenger.app,com.facebook.archon
+/Dropbox.app,com.getdropbox.dropbox
+/OneDrive.app,com.microsoft.OneDrive-mac
+/Box.app,com.box.desktop
+/Maestral.app,com.samschott.maestral
+/TftpServer.app,
+/NordLocker.app,
+/EaseUS Data Recovery Wizard.app,com.easeus.datarecoverywizard
+/iBoysoft NTFS for Mac.app,com.iBoysoft.NTFS-Assistant-website
+/EaseUS NTFS for Mac.app,com.easeus.ntfsformacappstore
+/M3 BitLocker Loader.app,com.M3DataRecovery.M3-BitLocker-Loader
+/CyberGhost VPN.app,
+/NordVPN.app,com.nordvpn.NordVPN
+/OpenVPN Connect.app,org.openvpn.client.app
+/Surfshark.app,com.surfshark.vpnclient.macos
+/Mullvad VPN.app,net.mullvad.vpn
+/ProtonVPN.app,ch.protonvpn.mac
+/Endpoint Security VPN.app,com.checkpoint.eps_vpn.ui
+/Norton Secure VPN.app,
+/Pritunl.app,com.electron.pritunl
+/Private Internet Access.app,
+/Tailscale.app,io.tailscale.ipn.macsys
+/ExpressVPN.app,com.expressvpn.ExpressVPN
+/AWS VPN Client.app,com.amazonaws.acvc.osx
+/Cloudflare WARP.app,com.cloudflare.1dot1dot1dot1.macos
+/AvastSecureLine.app,com.avast.osx.secureline
+/Guardian.app,com.sudosecuritygroup.Guardian
+/VPN Unlimited.app,com.simplexsolutionsinc.vpnguard
+/TunnelblickUpdater.app,net.tunnelblick.tunnelblick
+/Cisco Secure Client.app,com.cisco.secureclient.gui
+/ExpressVPN2.app,
+/TeamViewer.app,com.teamviewer.TeamViewer
+/duet.app,com.kairos.duetMac
+/Remote Desktop Manager.app,com.devolutions.remotedesktopmanager
+/Splashtop XDisplay.app,com.splashtop.Splashtop-XDisplay
+/No-IP DUC.app,com.noip.No-IP-DUC
+/AnyDesk.app,com.philandro.anydesk
+/PulseSetupClient.app,
+/Splashtop Streamer.app,com.splashtop.Splashtop-Streamer
+/Wondershare Dr.Fone Installer.app,com.wondershare.Installer
+/Apple Support Screen Sharing.app,
+/Remote Advisor.app,
+/Arc.app,company.thebrowser.Browser
+/Brave,com.brave.Browser
+/BrowserFairy,com.browserfairy
+/Browserosaurus,com.browserosaurus
+/Choosy,com.choosyosx.Choosy
+/Chromium,org.chromium.Chromium
+/Day One,com.bloombuilt.dayone-mac
+/Firefox,org.mozilla.firefox
+/Firefox Developer Edition,org.mozilla.firefoxdeveloperedition
+/HTTPie,io.httpie.desktop
+/LockDown Browser,com.Respondus.LockDownBrowser
+/Microsoft Edge,com.microsoft.edgemac
+/Microsoft Edge Dev,com.microsoft.edgemac.Dev
+/MobileSafari,
+/Opera,com.operasoftware.Opera
+/Opera GX,com.operasoftware.OperaGX
+/Orion,com.kagi.kagimacOS
+/Safari,com.apple.Safari
+/SeaMonkey,org.mozilla.seamonkey
+/Tor Browser,org.torproject.torbrowser
+/Vivaldi,com.vivaldi.Vivaldi
+/Sidekick.app,com.pushplaylabs.sidekick
+/Opera GX Installer.app,com.operasoftware.Installer.OperaGX
+/Opera Installer.app,com.operasoftware.Installer.Opera
+/Chromium Web Browser [1].app,org.chromium.Chromium
+/CyberGhost Private Browser.app,
+/DuckDuckGo.app,com.duckduckgo.macos.browser
+/Epic.app,com.hiddenreflex.Epic
+/Microsoft Edge Canary.app,com.microsoft.edgemac.Canary
+/Orion.app,com.kagi.kagimacOS
+/SigmaOS.app,com.sigmaos.sigmaos.macos
+/Vimari.app,net.televator.Vimari
+/Google Chrome Beta.app,
+/Shift.app,com.rdbrck.shift
