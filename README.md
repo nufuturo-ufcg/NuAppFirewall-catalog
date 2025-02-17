@@ -58,7 +58,7 @@ Follow these steps:
 
     - `-i`: For a single input CSV/TSV file.
     - `-r`: For a directory containing multiple CSV/TSV files.
-    - `-b`: For a TXT file containing app names to generate block rules.
+    - `-b`: For a CSV file containing app names and their respective identifiers to generate block rules.
 
         
     **Examples**
@@ -73,20 +73,32 @@ Follow these steps:
     python main.py -r path/to/network_access_logs_directory/ -o path/to/output_catalog
     ```
 
-    Generate Block Rules from a TXT File.
+    Generate Block Rules from a CSV File.
     ```bash
-    python main.py -b path/to/block_app_names.txt -o path/to/output_catalog
+    python main.py -b path/to/block_apps.csv -o path/to/output_catalog
     ```
 
     **Note that the `-b` flag can be used in combination with either `-i` or `-r` to apply block rules to the generated catalog.**
 
-6. **Output in .plist Format**: To generate a `.plist` output instead of JSON, run the script with the following command:
+6. **Output in .plist Format**: To generate a `.plist` output instead of JSON the script provides two options:
 
+    **--plist**: To generate a binary plist output:
     ```bash
-    python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --plist-format xml
+    python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --plist
     ```
 
-7. **Run Tests**: To run all tests located in the `/test` directory, use the `--test` flag:
+    **--plist-xml**: To generate an XML plist output:
+    ```bash
+    python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --plist-xml
+    ```
+
+7. **Rule Simplification**: To generate a simplified rules catalog, use the --simplified flag, which groups frequent destinations.
+
+    ```bash
+    python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --simplified
+    ```
+
+8. **Run Tests**: To run all tests located in the `/test` directory, use the `--test` flag:
 
     ```bash
     python main.py --test
