@@ -1,4 +1,5 @@
 import os
+import plistlib
 import re
 import sys
 import pandas as pd
@@ -466,6 +467,20 @@ def get_domains(endpoints: list[str], ip_urls_dict: dict) -> list[str]:
     return list(domains_set)
 
 
+def find_contents_path(path: str) -> str:
+    """
+    Finds the last subpath ending with '/Contents/' in the given string.
+
+    Args:
+    - path (str): The input path string.
+
+    Returns:
+    - str: The matched subpath, or "unknown" if no match is found.
+    """
+    match = re.match(r'^(.*Contents/)', path)
+    return match.group(1) if match else "unknown"
+
+
 def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
     """
     Process a CSV or TSV file to generate a corresponding Pandas DataFrame.
@@ -485,7 +500,65 @@ def read_sv_file(input_sv_file_path: str) -> pd.DataFrame:
         return None   
 
 
-def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: str) -> None:
+def get_identifier(executable_path: str) -> str:
+    """"
+    Given an executable path, returns its Identifier or a "unknown" string when
+    it could not be retrieved — for example, if the path does not exist locally.
+
+    Args:
+    - executable_path (str): The full path to the executable whose identifier 
+      needs to be retrieved. 
+
+    Returns:
+    - str: The identifier of the executable if found, otherwise, "unknown".
+    """
+    app_bundle_path = find_contents_path(executable_path)
+    plist_path = os.path.join(app_bundle_path, "Info.plist")
+    
+    if os.path.exists(plist_path):
+        with open(plist_path, 'rb') as plist_file:
+            plist_data = plistlib.load(plist_file)
+            return plist_data.get("CFBundleIdentifier", "unknown")
+    else:
+        return "unknown"
+
+
+def simplify_destinations(dest_list):
+    """
+    Given a list of destinations, simplifies the list by replacing all occurrences of endpoints that
+    appear 100 times or more with a single destination that has the specific endpoint and the keyword
+    "any" as the port. Endpoints with fewer than 100 destinations associated with it are preserved
+    in their original form.
+
+    Args:
+    - dest_list (list of tuples): A list of destinations, where each destination is a tuple of (endpoint, port).
+      The `endpoint` is the first element of the tuple and represents the destination address (e.g., IP or hostname).
+      The `port` is the second element of the tuple and represents the destination port.
+
+    Returns:
+    - list of tuples: A simplified list of destinations, where:
+        - If an endpoint appears 100 or more times in the input list, all occurrences of that endpoint are replaced
+          with a single tuple: (endpoint, "any").
+        - If an endpoint appears fewer than 100 times, all its original (endpoint, port) tuples are preserved.
+    """
+    endpoint_counts = {}
+    for endpoint, _ in dest_list:
+        endpoint_counts[endpoint] = endpoint_counts.get(endpoint, 0) + 1
+
+    simplified_dest_list = []
+    simplified_endpoints = set()
+    for endpoint, port in dest_list:
+        if endpoint_counts[endpoint] >= 100 and endpoint not in simplified_endpoints:
+            simplified_dest_list.append((endpoint, "any"))
+            simplified_endpoints.add(endpoint)
+        elif endpoint_counts[endpoint] < 100:
+            if (endpoint, port) not in simplified_dest_list:
+                simplified_dest_list.append((endpoint, port))
+
+    return simplified_dest_list
+
+
+def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, is_simplified: bool, output_csv_path: str) -> None:
     """
     Convert a dataframe produced from cortex logs to an intermediate CSV on rules-catalog/data/
 
@@ -496,15 +569,18 @@ def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: 
     Args:
     - filtered_df (pd.Dataframe): Dataframe created from cortex logs with only the following columns:
       'causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port' and 'dst_action_external_hostname'.
+    - is_simplified (bool): Boolean value that determines if endpoints with >99 occurrences of destinations
+      will be simplified to (endpoint, "any").
     - output_csv_path (str): The file path where the output CSV file will be saved.
 
     Returns:
     - None: The function writes the results directly to the specified output CSV file.
     
     Output CSV Structure:
-    - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
+    - causality_actor_process_image_path (str): The unique process image paths found in the original SV files.
     - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
       'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    - identifier (str): The unique identifier corresponding to the causality_actor_process_image_path.
     """
     def get_destinations(group):
         destinations = set()
@@ -525,75 +601,95 @@ def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, output_csv_path: 
     result = filtered_df.groupby('causality_actor_process_image_path').apply(get_destinations).reset_index()
 
     result.columns = ['causality_actor_process_image_path', 'destinations']
+    
+    if is_simplified:
+        result['destinations'] = result['destinations'].apply(simplify_destinations)
+
+    if 'identifier' not in filtered_df.columns:
+        result['identifier'] = result['causality_actor_process_image_path'].apply(get_identifier)
+    else:
+        result = result.merge(filtered_df[['causality_actor_process_image_path', 'identifier']], on='causality_actor_process_image_path', how='left')
 
     result.to_csv(output_csv_path, index=False)
 
 
-def process_block_file(input_block_file_path: str, output_csv_path: str) -> None:
+def process_block_file(input_block_file_path: str, is_simplified: bool, output_csv_path: str) -> None:
     """
-    Processes a TXT file that has an app to be blocked per line to generate a new CSV with unique
-    subpaths and associated destinations.
+    Processes a CSV file that has an app to be blocked per line and possibly its respective identifier
+    to generate a new CSV with unique subpaths and associated destinations and identifier.
 
-    This function reads an input TXT file and for each line creates a line on a dataframe with the 
+    This function reads an input CSV file and for each line creates a line on a dataframe with the 
     respective columns: 'causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port' 
-    and 'dst_action_external_hostname', after that it sends this dataframe to an auxiliary function to
-    write this dataframe to a new CSV file.
+    and 'dst_action_external_hostname', 'identiier', after that it sends this dataframe to an auxiliary
+    function to write this dataframe to a new CSV file.
 
     Parameters:
-    - input_bloc_file_path (str): The file path to the input TXT file.
+    - input_block_file_path (str): The file path to the input CSV file.
+    - is_simplified (bool): Boolean value that determines if the rules archive will be simplified
+      or not.
     - output_csv_path (str): The file path where the output CSV file will be saved.
     
     Returns:
     - None: The function writes the results directly to the specified output CSV file.
     
     Output CSV Structure:
-    - causality_actor_process_image_path (str): The unique process image paths based on each line of
-      the TXT file with the following structure, "/Applications/{app_name}".
+    - causality_actor_process_image_path (str): The unique process image subpaths based on 'app' column 
+      of the input csv file.
     - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
       'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    - identifier (str): The unique identifier corresponding to the causality_actor_process_image_path.
     """
-
     absolute_path = os.path.expanduser(input_block_file_path)
 
-    with open(absolute_path, "r") as file:
-        app_names = [line.strip() for line in file]
+    df = pd.read_csv(absolute_path)
+
+    if not {'app', 'identifier'}.issubset(df.columns):
+        raise ValueError("Input CSV must contain 'app' and 'identifier' columns.")
+
+    df['identifier'] = df['identifier'].fillna("unknown")
 
     data = {
-        'causality_actor_process_image_path': [app for app in app_names],
-        'action_remote_ip': [np.nan] * len(app_names),
-        'action_remote_port': [np.nan] * len(app_names),
-        'dst_action_external_hostname': ['any'] * len(app_names)
+        'causality_actor_process_image_path': df['app'],
+        'action_remote_ip': [np.nan] * len(df),
+        'action_remote_port': [np.nan] * len(df),
+        'dst_action_external_hostname': ['any'] * len(df),
+        'identifier': df['identifier']
     }
 
     df = pd.DataFrame(data)
 
-    filtered_df_to_intermediate_csv(df, output_csv_path)
+    filtered_df_to_intermediate_csv(df, is_simplified, output_csv_path)
 
 
-def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
+def process_sv_file(input_sv_file_path: str, is_simplified: bool, output_csv_path: str) -> None:
     """
-    Processes a CSV or TSV file to generate a new CSV with unique paths and associated destinations.
+    Processes a CSV or TSV file to generate a new CSV with unique paths and associated destinations and 
+    identifier.
 
     This function reads an input CSV or TSV file, filters and groups data by the unique paths found 
-    in the 'causality_actor_process_image_path' column, and creates a set of associated 
-    destinations from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns, 
-    'action_remote_ip' and 'dst_action_external_hostname' with null or blank values are excluded. 
+    in the 'causality_actor_process_image_path' column, and creates a set of associated destinations
+    from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns. 
+    'action_remote_ip', 'dst_action_external_hostname' with null or blank values are excluded. 
     The result is saved to a new CSV file.
 
     Parameters:
     - input_sv_file_path (str): The file path to the input CSV or TSV file.
+    - is_simplified (bool): Boolean value that determines if the rules archive will be simplified
+      or not.
     - output_csv_path (str): The file path where the output CSV file will be saved.
     
     Returns:
     - None: The function writes the results directly to the specified output CSV file.
     
     Output CSV Structure:
-    - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
+    - causality_actor_process_image_path (str): The unique process image paths found in the original SV files.
     - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
       'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    - identifier (str): The unique identifier corresponding to the causality_actor_process_image_path.
     """
-    
-    df = read_sv_file(input_sv_file_path)
+    absolute_path = os.path.expanduser(input_sv_file_path)
+
+    df = read_sv_file(absolute_path)
     
     if df is None:
         print('The given file format is not supported, only CSV or TSV')
@@ -602,30 +698,35 @@ def process_sv_file(input_sv_file_path: str, output_csv_path: str) -> None:
     df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
     df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 
-    filtered_df_to_intermediate_csv(df_filtered, output_csv_path)
+    filtered_df_to_intermediate_csv(df_filtered, is_simplified, output_csv_path)
 
 
-def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> None:
+def process_sv_directory(input_sv_directory_path: str, is_simplified: bool, output_csv_path: str) -> None:
     """
-    Processes a directory of CSV or TSV files to generate a new CSV with unique paths and associated destinations.
+    Processes a directory of CSV or TSV files to generate a new CSV with unique paths and associated destinations
+    and identifier.
 
     This function reads an input directory, filters and groups data of its logs by the unique 
     paths found in the 'causality_actor_process_image_path' column, and creates a set of associated 
-    destinations from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns, 
+    destinations from the 'action_remote_ip', 'dst_action_external_hostname' and 'action_remote_port' columns.
     'action_remote_ip' and 'dst_action_external_hostname' with null or blank values are excluded. 
     The result is saved to a new CSV file.
 
     Parameters:
     - input_sv_directory_path (str): The file path to the input directory of logs.
+    - is_simplified (bool): Boolean value that determines if the rules archive will be simplified
+      or not.
     - output_csv_path (str): The file path where the output CSV file will be saved.
     
     Returns:
     - None: The function writes the results directly to the specified output CSV file.
     
     Output CSV Structure:
-    - causality_actor_process_image_path (str): The unique process image paths found in the original CSV.
+    - causality_actor_process_image_path (str): The unique process image paths found in the original SV files 
+      directory.
     - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
       'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    - identifier (str): The unique identifier corresponding to the causality_actor_process_image_path.
     """
     absolute_path = os.path.expanduser(input_sv_directory_path)
 
@@ -652,4 +753,4 @@ def process_sv_directory(input_sv_directory_path: str, output_csv_path: str) -> 
     df_filtered = df[['causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port', 'dst_action_external_hostname']]
     df_filtered = df_filtered.dropna(subset=['action_remote_ip', 'dst_action_external_hostname'], how='all')
 
-    filtered_df_to_intermediate_csv(df_filtered, output_csv_path)
+    filtered_df_to_intermediate_csv(df_filtered, is_simplified, output_csv_path)
