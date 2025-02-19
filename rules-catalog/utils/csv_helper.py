@@ -18,12 +18,6 @@ def write_to_csv(logs_dict, output_file_path):
         for row in logs_dict:
             writer.writerow(row)
 
-# while True:
-#     try:
-#         csv.field_size_limit(maxInt)
-#         break
-#     except OverflowError:
-#         maxInt = int(maxInt/10)
     
 def read_csv(logs_csv):
     """
