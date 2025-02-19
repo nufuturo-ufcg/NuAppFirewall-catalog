@@ -59,6 +59,7 @@ Follow these steps:
     - `-i`: For a single input CSV/TSV file.
     - `-r`: For a directory containing multiple CSV/TSV files.
     - `-b`: For a CSV file containing app names and their respective identifiers to generate block rules.
+    - `--port-blocking`: For a TXT file containing ports that should be blocked system-wide.
 
         
     **Examples**
@@ -78,7 +79,12 @@ Follow these steps:
     python main.py -b path/to/block_apps.csv -o path/to/output_catalog
     ```
 
-    **Note that the `-b` flag can be used in combination with either `-i` or `-r` to apply block rules to the generated catalog.**
+    Generate System-Wide Port Blocking Rules from a TXT File.
+    ```bash
+    python main.py --port-blocking path/to/block_ports.txt -o path/to/output_catalog
+    ```
+
+    **Note that the `-b` and/or `--port-blocking` flag can be used in combination with either `-i` or `-r` to apply block rules to the generated catalog.**
 
 6. **Output in .plist Format**: To generate a `.plist` output instead of JSON the script provides two options:
 
