@@ -610,7 +610,52 @@ def filtered_df_to_intermediate_csv(filtered_df: pd.DataFrame, is_simplified: bo
     else:
         result = result.merge(filtered_df[['causality_actor_process_image_path', 'identifier']], on='causality_actor_process_image_path', how='left')
 
+    result = result.drop_duplicates(subset=['causality_actor_process_image_path'])
+
     result.to_csv(output_csv_path, index=False)
+
+
+def process_block_ports(input_block_ports_file_path: str, is_simplified: bool, output_csv_path: str) -> None:
+    """
+    Processes a TXT file that has a port to be blocked globally per line to generate a new CSV with "any" keyword 
+    as application and associated ports.
+
+    This function reads an input CSV file and for each line creates a line on a dataframe with the 
+    respective columns: 'causality_actor_process_image_path', 'action_remote_ip', 'action_remote_port' 
+    and 'dst_action_external_hostname', 'identiier', after that it sends this dataframe to an auxiliary
+    function to write this dataframe to a new CSV file.
+
+    Parameters:
+    - input_block_ports_file_path (str): The file path to the input TXT file.
+    - is_simplified (bool): Boolean value that determines if the rules archive will be simplified
+      or not.
+    - output_csv_path (str): The file path where the output CSV file will be saved.
+    
+    Returns:
+    - None: The function writes the results directly to the specified output CSV file.
+    
+    Output CSV Structure:
+    - causality_actor_process_image_path (str): Set to "any" to denote a system-wide rule.
+    - destinations (set): A set of lists consisting of unique values from the 'action_remote_ip' and 
+      'dst_action_external_hostname' columns with their associated 'action_remote_port' value.
+    - identifier (str): Set to "unknown".
+    """
+    absolute_path = os.path.expanduser(input_block_ports_file_path)
+
+    with open(absolute_path, "r") as file:
+        ports = [line.strip() for line in file]
+
+    data = {
+        'causality_actor_process_image_path': ['any'] * len(ports),
+        'action_remote_ip': [np.nan] * len(ports),
+        'action_remote_port': ports,
+        'dst_action_external_hostname': ['any'] * len(ports),
+        'identifier': ['unknown'] * len(ports),
+    }
+
+    df = pd.DataFrame(data)
+
+    filtered_df_to_intermediate_csv(df, is_simplified, output_csv_path)
 
 
 def process_block_file(input_block_file_path: str, is_simplified: bool, output_csv_path: str) -> None:
