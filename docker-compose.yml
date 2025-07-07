@@ -1,0 +1,7 @@
+services:
+  rules-catalog:
+    build: .  
+    volumes:
+      - ./data:/data
+    working_dir: /app/rules-catalog
+    entrypoint: ["python", "main.py"]

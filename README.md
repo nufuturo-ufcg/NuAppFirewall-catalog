@@ -32,27 +32,35 @@ This repository contains tools for managing and creating rule catalogs for the N
 
 ## How to Create a Rules Catalog
 
-Follow these steps:
-
-1. **Download or Clone Repository**: If you haven't already, download or clone the repository containing the `rules-catalog/` folder to your local machine.
+1. **Download or clone repository**: If you haven't already, download or clone the repository containing the `rules-catalog/` folder to your local machine.
 
     ```bash
     git clone https://github.com/nufuturo-ufcg/nu-app-firewall-catalog.git
     ```
 
-2. **Navigate to Repository Directory**: Open a terminal or command prompt and navigate to the directory where you downloaded or cloned the repository.
+2. **Navigate to repository directory**: Open a terminal or command prompt and navigate to the directory where you downloaded or cloned the repository.
 
     ```bash
     cd path/to/repository/rules-catalog/
     ```
 
-3. **Install Dependencies**: Ensure you have Python installed and run the following command to install the required dependencies:
+You can use either a Python virtual environment or Docker to run the catalog generation tool:
+
+### Option A: Using Python Virtual Environment (`venv`)
+
+1. **Create and activate a virtual environment**: Ensure you have Python installed and run the following command to create and activate a virtual environment:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate
+    ```
+
+2. **Install dependencies**: 
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4. **Prepare Your Data**: Ensure you have the EDR logs that you want to use for creating the rules catalog.
+4. **Prepare your data**: Ensure you have the EDR logs that you want to use for creating the rules catalog.
 
 5. **Run the main script**: The main.py script, located in the rules-catalog directory, is used to generate the rules catalog in JSON format. Depending on the input type, you can use one of the following flags:
 
@@ -86,7 +94,7 @@ Follow these steps:
 
     **Note that the `-b` and/or `--port-blocking` flag can be used in combination with either `-i` or `-r` to apply block rules to the generated catalog.**
 
-6. **Output in .plist Format**: To generate a `.plist` output instead of JSON the script provides two options:
+6. **Output in .plist format**: To generate a `.plist` output instead of JSON the script provides two options:
 
     **--plist**: To generate a binary plist output:
     ```bash
@@ -98,17 +106,59 @@ Follow these steps:
     python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --plist-xml
     ```
 
-7. **Rule Simplification**: To generate a simplified rules catalog, use the --simplified flag, which groups frequent destinations.
+7. **Rule simplification**: To generate a simplified rules catalog, use the --simplified flag, which groups frequent destinations.
 
     ```bash
     python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --simplified
     ```
 
-8. **Run Tests**: To run all tests located in the `/test` directory, use the `--test` flag:
+8. **Run tests**: To run all tests located in the `/test` directory, use the `--test` flag:
 
     ```bash
     python main.py --test
     ```
+
+### Option B: Using Docker
+
+1. **Builg the docker image**: From the root of the repository (where the `Dockerfile` and `docker-compose.yml` are located), build the container image.
+
+    ```bash
+    docker-compose build
+    ```
+
+2. **Prepare your data**: Place any input files (e.g. EDR logs, block rules, port lists) inside the data/ directory at the project root. This folder will be mounted into the container at runtime.
+
+3. **Run the main script**: Use `docker-compose run` to execute the `main.py` script with the desired flags. Depending on the input type, you can use one of the following flags:
+
+    - `-i`: For a single input CSV/TSV file.
+    - `-r`: For a directory containing multiple CSV/TSV files.
+    - `-b`: For a CSV file containing app names and their respective identifiers to generate block rules.
+    - `--port-blocking`: For a TXT file containing ports that should be blocked system-wide.
+
+    **Examples**
+
+    Generate a Catalog from a Single Input File.
+    ```bash
+    docker-compose run --rm rules-catalog -i path/to/network_access_logs.csv -o path/to/output_catalog
+    ```
+
+    Generate a Catalog from a Directory.
+    ```bash
+    docker-compose run --rm rules-catalog -r path/to/network_access_logs_directory/ -o path/to/output_catalog
+    ```
+
+    Generate Block Rules from a CSV File.
+    ```bash
+    docker-compose run --rm rules-catalog -b path/to/block_apps.csv -o path/to/output_catalog
+    ```
+
+4. **Optional flags**: 
+
+    - `--plist`: Output in binary `.plist` format.
+    - `--plist-xml`: Output in XML `.plist` format.
+    - `--simplified`: Simplified the generated catalog by grouping destinations.
+    - `--tests`: Run all tests located in the `/test` directory.
+
 
 This process will generate a rules catalog compatible with the Nu-App Firewall, ensuring your configurations are applied correctly.
 
