@@ -6,28 +6,30 @@ This repository contains tools for managing and creating rule catalogs for the N
 
 ```plaintext
 .
-├── catalog.json                  # Example rule catalog in JSON format
-├── catalog.plist                 # Example rule catalog in plist format
+├── Dockerfile                    # Dockerfile file
+├── LICENSE
 ├── README.md                     # Repository documentation
+├── data                          # Data repository
+├── docker-compose.yml            # docker-compose file
 └── rules-catalog                 # Main directory with scripts and modules
+    ├── README.md                 # Catalog documentation
     ├── config
-    │   ├── consts.py             # Constants used in the project
+    │   └── consts.py             # Constants used in the project
+    ├── data
     ├── main.py                   # Main script for catalog creation and management
     ├── managers
     │   └── rule_manager.py       # Manages rules and their operations
     ├── mappers
     │   └── rule_mapper.py        # Maps rules according to EDR logs
     ├── module
-    │   ├── log_analysis.py    # Module for analyzing EDR logs
-    │   └── README.md             # Module documentation
-    ├── README.md                 # Catalog documentation
+    │   ├── README.md             # Module documentation
+    │   └── log_analysis.py       # Module for analyzing EDR logs
     ├── requirements.txt          # Project dependencies
-    ├── test
-    │   └── test_rule_mapper.py   # Tests for rule mapping
     └── utils
         ├── csv_helper.py         # Helper for handling CSV files
         ├── json_helper.py        # Helper for handling JSON files
-        ├── plist_helper.py       # Helper for handling plist files
+        ├── main_helper.py        # Helper for handling main function
+        └── plist_helper.py       # Helper for handling PLIST files
 ```
 
 ## How to Create a Rules Catalog
@@ -112,12 +114,6 @@ You can use either a Python virtual environment or Docker to run the catalog gen
     python main.py -i path/to/network_access_logs.csv -o path/to/output_catalog --simplified
     ```
 
-8. **Run tests**: To run all tests located in the `/test` directory, use the `--test` flag:
-
-    ```bash
-    python main.py --test
-    ```
-
 ### Option B: Using Docker
 
 1. **Builg the docker image**: From the root of the repository (where the `Dockerfile` and `docker-compose.yml` are located), build the container image.
@@ -139,17 +135,17 @@ You can use either a Python virtual environment or Docker to run the catalog gen
 
     Generate a Catalog from a Single Input File.
     ```bash
-    docker-compose run --rm rules-catalog -i path/to/network_access_logs.csv -o path/to/output_catalog
+    docker-compose run --rm rules-catalog -i /path/to/network_access_logs.csv -o /path/to/output_catalog
     ```
 
     Generate a Catalog from a Directory.
     ```bash
-    docker-compose run --rm rules-catalog -r path/to/network_access_logs_directory/ -o path/to/output_catalog
+    docker-compose run --rm rules-catalog -r /path/to/network_access_logs_directory/ -o /path/to/output_catalog
     ```
 
     Generate Block Rules from a CSV File.
     ```bash
-    docker-compose run --rm rules-catalog -b path/to/block_apps.csv -o path/to/output_catalog
+    docker-compose run --rm rules-catalog -b /path/to/block_apps.csv -o /path/to/output_catalog
     ```
 
 4. **Optional flags**: 
@@ -157,8 +153,6 @@ You can use either a Python virtual environment or Docker to run the catalog gen
     - `--plist`: Output in binary `.plist` format.
     - `--plist-xml`: Output in XML `.plist` format.
     - `--simplified`: Simplified the generated catalog by grouping destinations.
-    - `--tests`: Run all tests located in the `/test` directory.
-
 
 This process will generate a rules catalog compatible with the Nu-App Firewall, ensuring your configurations are applied correctly.
 

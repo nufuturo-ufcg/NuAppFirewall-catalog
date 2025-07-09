@@ -1,6 +1,5 @@
 import argparse
 import os
-import unittest
 from utils.csv_helper import read_csv
 from managers.rule_manager import create_rules_dict
 
@@ -18,9 +17,6 @@ def parse_arguments():
                         help='Provide the path to the input CSV or TSV logs.')
     group.add_argument('-r', '--recursive', type=str,
                         help='Provide the path to the input directory of CSV or TSV logs.')
-    group.add_argument('--test', action='store_true',
-                        help='Run tests in the test folder')
-    
     parser.add_argument('-b', '--block', type=str,
                         help='Provide the path to the input csv file of apps that should be blocked.')
     parser.add_argument('--port-blocking', type=str,
@@ -39,20 +35,11 @@ def parse_arguments():
     
     args = parser.parse_args()
 
-    if not (args.input or args.recursive or args.test or args.block or args.port_blocking):
-        parser.error("one of the arguments -i/--input -r/--recursive --test -b/--block or --port-blocking is required")
+    if not (args.input or args.recursive or args.block or args.port_blocking):
+        parser.error("one of the arguments -i/--input -r/--recursive -b/--block or --port-blocking is required")
 
     if (args.input or args.recursive or args.block or args.port_blocking) and not args.output:
         parser.error("-o/--output is required when using one of the following arguments: -i/--input, -r/--recursive, -b/--block, --port-blocking.")
-
-    if (args.block or args.port_blocking) and args.test:
-        parser.error("--test argument cannot be used with -b/--block or --port-blocking.")
-
-    if args.simplified and args.test:
-        parser.error("--test argument cannot be used with --simplified.")
-
-    if (args.plist or args.plist_xml) and args.test:
-        parser.error("--test argument cannot be used with --plist or --plist-xml.")
 
     if args.plist:
         args.format = 'bin'
@@ -62,17 +49,6 @@ def parse_arguments():
         args.format = 'json'
 
     return args
-
-
-def run_tests():
-    """
-    Run unit tests in the test folder.
-    """
-    test_dir = os.path.join(os.path.dirname(__file__), 'test')
-    
-    test_loader = unittest.TestLoader()
-    test_suite = test_loader.discover(test_dir)
-    unittest.TextTestRunner().run(test_suite)
 
 
 def create_data_directory():

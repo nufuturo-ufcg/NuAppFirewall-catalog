@@ -10,9 +10,7 @@ def main():
     create_data_directory()
 
     args = parse_arguments()
-    if args.test:
-        run_tests()
-    elif args.block and args.port_blocking and args.recursive:
+    if args.block and args.port_blocking and args.recursive:
         consts.NETWORK_ACCESS_LOGS_SV_PATH = args.recursive
         consts.NETWORK_BLOCK_APP_NAMES_PATH = args.block
         consts.NETWORK_BLOCK_PORTS_PATH = args.port_blocking
