@@ -1,6 +1,6 @@
 # Nu App Firewall Catalog
 
-This repository contains tools for managing and creating rule catalogs for the Nu App Firewall. It includes scripts and modules for data analysis, rule mapping, and handling different file formats such as JSON and plist.
+This repository contains tools for managing and creating rule catalogs for the NuAppFirewall, [available at this repository](https://github.com/nufuturo-ufcg/NuAppFirewall). It includes scripts and modules for data analysis, rule mapping, and handling different file formats such as JSON and plist.
 
 ## Repository Structure
 
